@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.Jogo;
+import model.Usuario;
 
-public class JogoDAO {
+public class UsuarioDAO {
 	private Connection conexao;
 
-	public JogoDAO() {
+	public UsuarioDAO() {
 		conexao = null;
 	}
 
@@ -49,18 +49,17 @@ public class JogoDAO {
 		return status;
 	}
 
-	public boolean inserirJogo(Jogo jogo) {
+	public boolean inserirUsuario(Usuario usuario) {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
 			st.executeUpdate(
-					"INSERT INTO \"Jogo\" (titulo, descricao, url, display, pontuacao)"
+					"INSERT INTO \"Usuario\" (username, email, senha, grupo)"
 							+ " VALUES ("
-							+ jogo.getTitulo() + "', '"
-							+ jogo.getDescricao() + "', '"
-							+ jogo.getUrl() + "', '"
-							+ jogo.getDisplay() + "', "
-							+ jogo.getPontuacao() + ");");
+							+ usuario.getUsername() + "', '"
+							+ usuario.getEmail() + "', '"
+							+ usuario.getSenha() + "', '"
+							+ usuario.getGrupo() + ");");
 			st.close();
 			status = true;
 		} catch (SQLException u) {
@@ -69,21 +68,19 @@ public class JogoDAO {
 		return status;
 	}
 
-	public boolean atualizarJogo(Jogo jogo) {
+	public boolean atualizarUsuario(Usuario usuario) {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
-			String sql = "UPDATE \"Jogo\" SET titulo = '"
-					+ jogo.getTitulo()
-					+ "', descricao = '"
-					+ jogo.getDescricao()
-					+ "', url = '"
-					+ jogo.getUrl()
-					+ "', display = '"
-					+ jogo.getDisplay()
-					+ "', pontuacao = "
-					+ jogo.getPontuacao()
-					+ " WHERE \"idJogo\" = " + jogo.getIdJogo();
+			String sql = "UPDATE \"Usuario\" SET username = '"
+					+ usuario.getUsername()
+					+ "', email = '"
+					+ usuario.getEmail()
+					+ "', senha = '"
+					+ usuario.getSenha()
+					+ "', grupo = "
+					+ usuario.getGrupo()
+					+ " WHERE \"idUsuario\" = " + usuario.getIdUsuario();
 			st.executeUpdate(sql);
 			st.close();
 			status = true;
@@ -93,11 +90,11 @@ public class JogoDAO {
 		return status;
 	}
 
-	public boolean excluirJogo(long idJogo) {
+	public boolean excluirUsuario(long idUsuario) {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE FROM \"Jogo\" WHERE \"idJogo\" = " + idJogo);
+			st.executeUpdate("DELETE FROM \"Usuario\" WHERE \"idUsuario\" = " + idUsuario);
 			st.close();
 			status = true;
 		} catch (SQLException u) {
@@ -106,45 +103,45 @@ public class JogoDAO {
 		return status;
 	}
 
-	private Jogo newJogoFromRS(ResultSet rs) throws SQLException {
-		return new Jogo(rs.getLong("idJogo"), rs.getString("titulo"), rs.getString("descricao"),
-				rs.getString("url"), rs.getString("display"), rs.getInt("pontuacao"));
+	private Usuario newUsuarioFromRS(ResultSet rs) throws SQLException {
+		return new Usuario(rs.getLong("idUsuario"), rs.getString("username"), rs.getString("email"),
+				rs.getString("senha"), rs.getInt("grupo"));
 	}
 
-	public Jogo[] listarJogos() {
-		Jogo[] jogos = null;
+	public Usuario[] listarUsuarios() {
+		Usuario[] usuarios = null;
 
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM \"Jogo\"");
+			ResultSet rs = st.executeQuery("SELECT * FROM \"Usuario\"");
 			if (rs.next()) {
 				rs.last();
-				jogos = new Jogo[rs.getRow()];
+				usuarios = new Usuario[rs.getRow()];
 				rs.beforeFirst();
 
 				for (int i = 0; rs.next(); i++) {
-					jogos[i] = newJogoFromRS(rs);
+					usuarios[i] = newUsuarioFromRS(rs);
 				}
 			}
 			st.close();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		return jogos;
+		return usuarios;
 	}
 
-	public Jogo lerJogo(long idJogo) {
-		Jogo jogo = null;
+	public Usuario lerUsuario(long idUsuario) {
+		Usuario usuario = null;
 		try {
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM \"Jogo\" WHERE \"idJogo\" = " + idJogo);
+			ResultSet rs = st.executeQuery("SELECT * FROM \"Usuario\" WHERE \"idUsuario\" = " + idUsuario);
 			if (rs.next()) {
-				jogo = newJogoFromRS(rs);
+				usuario = newUsuarioFromRS(rs);
 			}
 			st.close();
 		} catch (SQLException u) {
 			throw new RuntimeException(u);
 		}
-		return jogo;
+		return usuario;
 	}
 }

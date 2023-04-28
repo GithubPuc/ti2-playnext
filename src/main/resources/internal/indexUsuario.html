@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+    <script>
+        const tipoSimples = 0, tipoLista = 1;
+        function bodyOnLoad() {
+            try {
+                const err = JSON.parse(`{MSG:~ERRO~}`); // ~X~ <- server
+                if (err.MSG.length > 0)
+                    alert(resp.ERRO);
+            } catch { }
+            document.querySelectorAll("form").forEach(
+                f => {
+                    f.action = "javascript:void(0)";
+                    f.addEventListener("submit", (e) => post_req(e.target.attributes["end"].value, e.target))
+                }
+            );
+            try {
+                const populate = `~FETCH~`;
+                if (populate != "~FETCH~") {
+                    fetch(populate, { method: "POST", body: `~FBODY~` })
+                        .then(resp => resp.json())
+                        .then(json => processar(json));
+                }
+            } catch { }
+        }
+        function post_req(end, form) {
+            const fd = new FormData(form);
+            let data = {};
+            for (const [k, v] of fd)
+                data[k] = v;
+            fetch(end, { method: "POST", body: JSON.stringify(data) })
+                .then(resp => resp.json())
+                .then(json => processar(json));
+        }
+        function processar(r) {
+            if (r.tipo == tipoSimples)
+                alert(JSON.stringify(r.valor));
+            if (r.tipo == tipoLista)
+                listar(r.valor);
+        }
+        function listar(arr) {
+            const l = document.querySelector("#lista");
+            l.innerHTML = "";
+            for (const e of arr) {
+                const li = document.createElement("li");
+                li.textContent = JSON.stringify(e);
+                l.appendChild(li);
+            }
+        }
+    </script>
+</head>
+
+<body onload="bodyOnLoad()">
+    <div id="forms">
+        <form end="/usuario/insert" style="background-color: limegreen;">
+            <label>Username:
+                <input type="text" name="username">
+            </label>
+            <label>Email:
+                <textarea name="email"></textarea>
+            </label>
+            <label>Senha:
+                <input type="password" name="senha">
+            </label>
+            <label>Grupo:
+                <input type="number" name="grupo">
+            </label>
+            <br>
+            <input type="submit" value="Criar">
+        </form>
+        <br>
+        <form end="/usuario" style="background-color: goldenrod;">
+            <label>idUsuario:
+                <input type="number" name="idUsuario">
+            </label>
+            <br>
+            <input type="submit" value="Listar">
+        </form>
+        <br>
+        <form end="/usuario/update" style="background-color: darkslateblue;">
+            <label>idUsuario:
+                <input type="number" name="idUsuario">
+            </label>
+            <label>Username:
+                <input type="text" name="username">
+            </label>
+            <label>Email:
+                <textarea name="email"></textarea>
+            </label>
+            <label>Senha:
+                <input type="password" name="senha">
+            </label>
+            <label>Grupo:
+                <input type="number" name="grupo">
+            </label>
+            <br>
+            <input type="submit" value="Atualizar">
+        </form>
+        <br>
+        <form end="/usuario/delete" style="background-color: crimson;">
+            <label>idUsuario:
+                <input type="number" name="idUsuario">
+            </label>
+            <br>
+            <input type="submit" value="Deletar">
+        </form>
+    </div>
+    <br>
+    <div id="tabela">
+        <h3 id="acao"></h3>
+        <ol id="lista">
+            <!--lista-->
+        </ol>
+    </div>
+    <style>
+        html {
+            background-color: black;
+            color: white;
+        }
+        
+        form {
+            padding-left: 1em;
+            padding-top: 1em;
+        }
+
+        label {
+            display: inline-block;
+        }
+
+        textarea {
+            vertical-align: baseline;
+        }
+
+        input[type=number] {
+            width: 5em;
+        }
+
+        input[type=submit] {
+            font-size: large;
+            margin: 1em;
+        }
+
+        form {
+            color: black;
+        }
+    </style>
+</body>
+
+</html>
