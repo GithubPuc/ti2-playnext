@@ -58,12 +58,12 @@
 
 <body onload="bodyOnLoad()">
     <div id="forms">
-        <form end="/usuario/insert" style="background-color: limegreen;">
+        <form end="/usuario/create" style="background-color: limegreen;">
             <label>Username:
                 <input type="text" name="username">
             </label>
             <label>Email:
-                <textarea name="email"></textarea>
+                <input type="text" name="email">
             </label>
             <label>Senha:
                 <input type="password" name="senha">
@@ -91,7 +91,7 @@
                 <input type="text" name="username">
             </label>
             <label>Email:
-                <textarea name="email"></textarea>
+                <input type="text" name="email">
             </label>
             <label>Senha:
                 <input type="password" name="senha">
@@ -123,7 +123,7 @@
             background-color: black;
             color: white;
         }
-        
+
         form {
             padding-left: 1em;
             padding-top: 1em;
@@ -131,10 +131,6 @@
 
         label {
             display: inline-block;
-        }
-
-        textarea {
-            vertical-align: baseline;
         }
 
         input[type=number] {
