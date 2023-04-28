@@ -27,8 +27,8 @@ public class Jogo {
 				+ ", \"titulo\":\"" + titulo
 				+ "\", \"descricao\":\"" + descricao
 				+ "\", \"url\":\"" + url
-				+ "\", \"descricao\":\"" + display
-				+ "\", \"descricao\":\"" + pontuacao + "\"}";
+				+ "\", \"display\":\"" + display
+				+ "\", \"pontuacao\":\"" + pontuacao + "\"}";
 	}
 
 	public long getIdJogo() {

@@ -55,10 +55,10 @@ public class UsuarioDAO {
 			Statement st = conexao.createStatement();
 			st.executeUpdate(
 					"INSERT INTO \"Usuario\" (username, email, senha, grupo)"
-							+ " VALUES ("
+							+ " VALUES ('"
 							+ usuario.getUsername() + "', '"
 							+ usuario.getEmail() + "', '"
-							+ usuario.getSenha() + "', '"
+							+ usuario.getSenha() + "',"
 							+ usuario.getGrupo() + ");");
 			st.close();
 			status = true;

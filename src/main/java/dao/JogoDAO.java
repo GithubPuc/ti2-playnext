@@ -55,7 +55,7 @@ public class JogoDAO {
 			Statement st = conexao.createStatement();
 			st.executeUpdate(
 					"INSERT INTO \"Jogo\" (titulo, descricao, url, display, pontuacao)"
-							+ " VALUES ("
+							+ " VALUES ('"
 							+ jogo.getTitulo() + "', '"
 							+ jogo.getDescricao() + "', '"
 							+ jogo.getUrl() + "', '"

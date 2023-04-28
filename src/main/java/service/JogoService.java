@@ -50,7 +50,7 @@ public class JogoService {
 
     public Object postListar(Request request, Response response) {
         response.type("application/json");
-        return jsonPadrao(dao.listarJogos());
+        return jsonLista(dao.listarJogos());
     }
 
     public Object postLerJogo(Request request, Response response) {
@@ -59,7 +59,7 @@ public class JogoService {
             JsonNode parent = objectMapper.readTree(request.body());
             Long idJogo = parent.path("idJogo").asLong();
             if (idJogo == 0L)
-                return jsonPadrao(dao.listarJogos());
+                return jsonLista(dao.listarJogos());
             return jsonPadrao(dao.lerJogo(idJogo));
         } catch (Exception e) {
             response.status(400);
@@ -105,16 +105,19 @@ public class JogoService {
         return String.format("{\"tipo\":%d,\"valor\":%s}", tipo, valor);
     }
 
-    private String jsonPadrao(Object[] arr) {
-        String r = "[";
-        for (int i = 0; i < arr.length - 1; i++)
-            r += arr[i].toString() + ",";
-        r += arr[arr.length - 1].toString();
-        r += "]";
-        return jsonPadrao(1, r);
+    private String jsonLista(Object[] o) {
+        try {
+            return jsonPadrao(1, objectMapper.writeValueAsString(o));
+        } catch (Exception e) {
+            return jsonPadrao(0, "Erro interno");
+        }
     }
 
     private String jsonPadrao(Object o) {
-        return jsonPadrao(0, o.toString());
+        try {
+            return jsonPadrao(0, objectMapper.writeValueAsString(o));
+        } catch (Exception e) {
+            return jsonPadrao(0, "Erro interno");
+        }
     }
 }

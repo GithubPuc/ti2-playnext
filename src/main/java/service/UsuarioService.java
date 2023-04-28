@@ -43,7 +43,7 @@ public class UsuarioService {
 
     public Object postListar(Request request, Response response) {
         response.type("application/json");
-        return jsonPadrao(dao.listarUsuarios());
+        return jsonLista(dao.listarUsuarios());
     }
 
     public Object getLerUsuario(Request request, Response response) {
@@ -59,7 +59,7 @@ public class UsuarioService {
             JsonNode parent = objectMapper.readTree(request.body());
             Long idUsuario = parent.path("idUsuario").asLong();
             if (idUsuario == 0L)
-                return jsonPadrao(dao.listarUsuarios());
+                return jsonLista(dao.listarUsuarios());
             return jsonPadrao(dao.lerUsuario(idUsuario));
         } catch (Exception e) {
             response.status(400);
@@ -105,16 +105,19 @@ public class UsuarioService {
         return String.format("{\"tipo\":%d,\"valor\":%s}", tipo, valor);
     }
 
-    private String jsonPadrao(Object[] arr) {
-        String r = "[";
-        for (int i = 0; i < arr.length - 1; i++)
-            r += arr[i].toString() + ",";
-        r += arr[arr.length - 1].toString();
-        r += "]";
-        return jsonPadrao(1, r);
+    private String jsonLista(Object[] o) {
+        try {
+            return jsonPadrao(1, objectMapper.writeValueAsString(o));
+        } catch (Exception e) {
+            return jsonPadrao(0, "Erro interno");
+        }
     }
 
     private String jsonPadrao(Object o) {
-        return jsonPadrao(0, o.toString());
+        try {
+            return jsonPadrao(0, objectMapper.writeValueAsString(o));
+        } catch (Exception e) {
+            return jsonPadrao(0, "Erro Interno");
+        }
     }
 }
