@@ -32,6 +32,18 @@ public class TagService extends Service<TagDAO> {
 		return jsonLista(dao.listarTags());
 	}
 
+	public Object listarTagsPorJogo(Request request, Response response) {
+		response.type("application/json");
+		try {
+			JsonNode parent = objectMapper.readTree(request.body());
+			Long idJogo = parent.path("idJogo").asLong();
+			return jsonPadrao(dao.listarTagsDeJogo(idJogo));
+		} catch (Exception e) {
+			response.status(400);
+			return jsonPadrao("\"BAD REQUEST\"");
+		}
+	}
+
 	public Object postLerTag(Request request, Response response) {
 		response.type("application/json");
 		try {

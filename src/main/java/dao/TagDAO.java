@@ -81,6 +81,26 @@ public class TagDAO extends DAO {
 		return tags;
 	}
 
+	public Tag[] listarTagsDeJogo(Long idJogo) {
+		Tag[] tags = null;
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery(
+					"SELECT * FROM Tag INNER JOIN TagRel ON Tag.idTag = TagRel.idTag WHERE idJogo = " + idJogo);
+			if (rs.next()) {
+				rs.last();
+				tags = new Tag[rs.getRow()];
+				rs.beforeFirst();
+				for (int i = 0; rs.next(); i++)
+					tags[i] = new Tag(rs.getLong("idTag"), rs.getString("tagName"), rs.getString("tagDesc"));
+			}
+			st.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return tags;
+	}
+
 	public Tag lerTag(long idTag) {
 		Tag tag = null;
 		try {

@@ -9,6 +9,7 @@ import dao.TagRelDAO;
 import model.TagRel;
 
 public class TagRelService extends Service<TagRelDAO> {
+
 	public TagRelService() {
 		super(new TagRelDAO(), "indexTagRel.html");
 	}

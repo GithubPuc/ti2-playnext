@@ -13,7 +13,8 @@ function bodyOnLoad() {
 	);
 	try {
 		if (populate != "~FETCH~") {
-			fetch(populate, { method: "POST", body: fbody })
+			let jsonBody = (fbody != "~FBODY~") ? fbody : "";
+			fetch(populate, { method: "POST", body: jsonBody })
 				.then(resp => resp.json())
 				.then(json => processar(json));
 		}

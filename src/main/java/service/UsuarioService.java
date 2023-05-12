@@ -47,6 +47,7 @@ public class UsuarioService extends Service<UsuarioDAO> {
 	}
 
 	public Object postCriarUsuario(Request request, Response response) {
+		// TODO: encrypt password
 		response.type("application/json");
 		try {
 			Usuario u = objectMapper.readValue(request.body(), Usuario.class);
@@ -58,6 +59,7 @@ public class UsuarioService extends Service<UsuarioDAO> {
 	}
 
 	public Object postAtualizarUsuario(Request request, Response response) {
+		// TODO: encrypt password
 		response.type("application/json");
 		try {
 			Usuario u = objectMapper.readValue(request.body(), Usuario.class);

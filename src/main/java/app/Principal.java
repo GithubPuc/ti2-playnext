@@ -54,6 +54,8 @@ public class Principal {
 		post("/tags", tagService::postListar);
 		get("/tags", tagService::getListar);
 
+		post("/tags/jogo", tagService::listarTagsPorJogo);
+
 		post("/tag", tagService::postLerTag);
 		get("/tag/:idTag", tagService::getLerTag);
 
