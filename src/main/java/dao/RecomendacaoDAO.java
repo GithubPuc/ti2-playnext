@@ -65,23 +65,23 @@ public class RecomendacaoDAO extends DAO {
 				rs.getInt("confianca"));
 	}
 
-	public Recomendacao[] listarRecomendacaos() {
-		Recomendacao[] recomendacaos = null;
+	public Recomendacao[] listarRecomendacoes() {
+		Recomendacao[] recomendacoes = null;
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = st.executeQuery("SELECT * FROM Recomendacao");
 			if (rs.next()) {
 				rs.last();
-				recomendacaos = new Recomendacao[rs.getRow()];
+				recomendacoes = new Recomendacao[rs.getRow()];
 				rs.beforeFirst();
 				for (int i = 0; rs.next(); i++)
-					recomendacaos[i] = newRecomendacaoFromRS(rs);
+					recomendacoes[i] = newRecomendacaoFromRS(rs);
 			}
 			st.close();
 		} catch (SQLException u) {
 			throw new RuntimeException(u);
 		}
-		return recomendacaos;
+		return recomendacoes;
 	}
 
 	public Recomendacao lerRecomendacao(long idRecomendacao) {

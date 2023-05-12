@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interesses</title>
+    <script>
+        // Server rendered values
+        const err = `~ERRO~`;
+        const populate = `~FETCH~`;
+        const fbody = `~FBODY~`;
+    </script>
+    <script src="scripts/basico.js"></script>
+    <link rel="stylesheet" href="styles/basico.css">
+</head>
+
+<body onload="bodyOnLoad()">
+    <div id="forms">
+        <form end="/interesse/create" style="background-color: limegreen;">
+            <label>idUsuario:
+                <input type="number" name="idUsuario">
+            </label>
+            <label>idJogo:
+                <input type="number" name="idJogo">
+            </label>
+            <label>Tipo:
+                <input type="number" name="tipo">
+            </label>
+            <label>Peso:
+                <input type="number" name="peso">
+            </label>
+            <br>
+            <input type="submit" value="Criar">
+        </form>
+        <br>
+        <form end="/interesse" style="background-color: goldenrod;">
+            <label>idInteresse:
+                <input type="number" name="idInteresse">
+            </label>
+            <br>
+            <input type="submit" value="Listar">
+        </form>
+        <br>
+        <form end="/interesse/update" style="background-color: darkslateblue;">
+            <label>idInteresse:
+                <input type="number" name="idInteresse">
+            </label>
+            <label>idUsuario:
+                <input type="number" name="idUsuario">
+            </label>
+            <label>idJogo:
+                <input type="number" name="idJogo">
+            </label>
+            <label>Tipo:
+                <input type="number" name="tipo">
+            </label>
+            <label>Peso:
+                <input type="number" name="peso">
+            </label>
+            <br>
+            <input type="submit" value="Atualizar">
+        </form>
+        <br>
+        <form end="/interesse/delete" style="background-color: crimson;">
+            <label>idInteresse:
+                <input type="number" name="idInteresse">
+            </label>
+            <br>
+            <input type="submit" value="Deletar">
+        </form>
+    </div>
+    <br>
+    <div id="tabela">
+        <h3 id="acao"></h3>
+        <ol id="lista">
+            <!--lista-->
+        </ol>
+    </div>
+</body>
+
+</html>

@@ -49,8 +49,8 @@ public class TagService extends Service<TagDAO> {
 	public Object postCriarTag(Request request, Response response) {
 		response.type("application/json");
 		try {
-			Tag u = objectMapper.readValue(request.body(), Tag.class);
-			return jsonPadrao(dao.inserirTag(u) ? "Sucesso" : "Erro interno");
+			Tag t = objectMapper.readValue(request.body(), Tag.class);
+			return jsonPadrao(dao.inserirTag(t) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
 			return jsonPadrao("\"BAD REQUEST\"");
@@ -60,8 +60,8 @@ public class TagService extends Service<TagDAO> {
 	public Object postAtualizarTag(Request request, Response response) {
 		response.type("application/json");
 		try {
-			Tag u = objectMapper.readValue(request.body(), Tag.class);
-			return jsonPadrao(dao.atualizarTag(u) ? "Sucesso" : "Erro interno");
+			Tag t = objectMapper.readValue(request.body(), Tag.class);
+			return jsonPadrao(dao.atualizarTag(t) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
 			return jsonPadrao("\"BAD REQUEST\"");

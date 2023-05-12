@@ -49,8 +49,8 @@ public class JogoService extends Service<JogoDAO> {
 	public Object postCriarJogo(Request request, Response response) {
 		response.type("application/json");
 		try {
-			Jogo u = objectMapper.readValue(request.body(), Jogo.class);
-			return jsonPadrao(dao.inserirJogo(u) ? "Sucesso" : "Erro interno");
+			Jogo j = objectMapper.readValue(request.body(), Jogo.class);
+			return jsonPadrao(dao.inserirJogo(j) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
 			return jsonPadrao("\"BAD REQUEST\"");
@@ -60,8 +60,8 @@ public class JogoService extends Service<JogoDAO> {
 	public Object postAtualizarJogo(Request request, Response response) {
 		response.type("application/json");
 		try {
-			Jogo u = objectMapper.readValue(request.body(), Jogo.class);
-			return jsonPadrao(dao.atualizarJogo(u) ? "Sucesso" : "Erro interno");
+			Jogo j = objectMapper.readValue(request.body(), Jogo.class);
+			return jsonPadrao(dao.atualizarJogo(j) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
 			return jsonPadrao("\"BAD REQUEST\"");

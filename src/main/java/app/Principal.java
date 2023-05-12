@@ -2,7 +2,9 @@ package app;
 
 import static spark.Spark.*;
 
+import service.InteresseService;
 import service.JogoService;
+import service.RecomendacaoService;
 import service.TagRelService;
 import service.TagService;
 import service.UsuarioService;
@@ -14,6 +16,8 @@ public class Principal {
 		UsuarioService usuarioService = new UsuarioService();
 		TagService tagService = new TagService();
 		TagRelService tagRelService = new TagRelService();
+		InteresseService interesseService = new InteresseService();
+		RecomendacaoService recomendacaoService = new RecomendacaoService();
 
 		port(4500);
 
@@ -67,5 +71,27 @@ public class Principal {
 		post("/tagrel/create", tagRelService::postCriarTagRel);
 		post("/tagrel/update", tagRelService::postAtualizarTagRel);
 		post("/tagrel/delete", tagRelService::postDeletarTagRel);
+
+		// Interesses
+		post("/interesses", interesseService::postListar);
+		get("/interesses", interesseService::getListar);
+
+		post("/interesse", interesseService::postLerInteresse);
+		get("/interesse/:idInteresse", interesseService::getLerInteresse);
+
+		post("/interesse/create", interesseService::postCriarInteresse);
+		post("/interesse/update", interesseService::postAtualizarInteresse);
+		post("/interesse/delete", interesseService::postDeletarInteresse);
+
+		// Recomendacao
+		post("/recomendacoes", recomendacaoService::postListar);
+		get("/recomendacoes", recomendacaoService::getListar);
+
+		post("/recomendacao", recomendacaoService::postLerRecomendacao);
+		get("/recomendacao/:idRecomendacao", recomendacaoService::getLerRecomendacao);
+
+		post("/recomendacao/create", recomendacaoService::postCriarRecomendacao);
+		post("/recomendacao/update", recomendacaoService::postAtualizarRecomendacao);
+		post("/recomendacao/delete", recomendacaoService::postDeletarRecomendacao);
 	}
 }
