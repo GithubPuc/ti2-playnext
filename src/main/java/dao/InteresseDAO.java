@@ -100,4 +100,23 @@ public class InteresseDAO extends DAO {
 		}
 		return interesse;
 	}
+
+	public Interesse[] listarInteressesDoUsuario(Long idUsuario) {
+		Interesse[] interesses = null;
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("SELECT * FROM Interesse WHERE idUsuario = " + idUsuario);
+			if (rs.next()) {
+				rs.last();
+				interesses = new Interesse[rs.getRow()];
+				rs.beforeFirst();
+				for (int i = 0; rs.next(); i++)
+					interesses[i] = newInteresseFromRS(rs);
+			}
+			st.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return interesses;
+	}
 }

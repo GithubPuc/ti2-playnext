@@ -78,6 +78,8 @@ public class Principal {
 		post("/interesses", interesseService::postListar);
 		get("/interesses", interesseService::getListar);
 
+		post("/interesses/usuario", interesseService::postListarUsuario);
+
 		post("/interesse", interesseService::postLerInteresse);
 		get("/interesse/:idInteresse", interesseService::getLerInteresse);
 
@@ -88,6 +90,8 @@ public class Principal {
 		// Recomendacao
 		post("/recomendacoes", recomendacaoService::postListar);
 		get("/recomendacoes", recomendacaoService::getListar);
+
+		post("/recomendacoes/usuario", recomendacaoService::postListarUsuario);
 
 		post("/recomendacao", recomendacaoService::postLerRecomendacao);
 		get("/recomendacao/:idRecomendacao", recomendacaoService::getLerRecomendacao);

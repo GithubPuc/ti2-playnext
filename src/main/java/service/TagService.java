@@ -37,7 +37,7 @@ public class TagService extends Service<TagDAO> {
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
 			Long idJogo = parent.path("idJogo").asLong();
-			return jsonPadrao(dao.listarTagsDeJogo(idJogo));
+			return jsonLista(dao.listarTagsDeJogo(idJogo));
 		} catch (Exception e) {
 			response.status(400);
 			return jsonPadrao("\"BAD REQUEST\"");

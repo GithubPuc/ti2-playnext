@@ -97,4 +97,23 @@ public class RecomendacaoDAO extends DAO {
 		}
 		return recomendacao;
 	}
+
+	public Recomendacao[] listarRecomendacoesParaUsuario(Long idUsuario) {
+		Recomendacao[] recomendacoes = null;
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("SELECT * FROM Recomendacao WHERE idUsuario = " + idUsuario);
+			if (rs.next()) {
+				rs.last();
+				recomendacoes = new Recomendacao[rs.getRow()];
+				rs.beforeFirst();
+				for (int i = 0; rs.next(); i++)
+					recomendacoes[i] = newRecomendacaoFromRS(rs);
+			}
+			st.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return recomendacoes;
+	}
 }
