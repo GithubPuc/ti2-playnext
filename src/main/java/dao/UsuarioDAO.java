@@ -13,7 +13,7 @@ public class UsuarioDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO \"Usuario\" (username, email, senha, grupo) VALUES (?, ?, ?, ?);");
+					"INSERT INTO Usuario (username, email, senha, grupo) VALUES (?, ?, ?, ?);");
 			ps.setString(1, usuario.getUsername());
 			ps.setString(2, usuario.getEmail());
 			ps.setString(3, usuario.getSenha());
@@ -31,7 +31,7 @@ public class UsuarioDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"UPDATE \"Usuario\" SET username = ?, email = ?, senha = ?, grupo = ? WHERE \"idUsuario\" = ?");
+					"UPDATE Usuario SET username = ?, email = ?, senha = ?, grupo = ? WHERE idUsuario = ?");
 			ps.setString(1, usuario.getUsername());
 			ps.setString(2, usuario.getEmail());
 			ps.setString(3, usuario.getSenha());
@@ -50,7 +50,7 @@ public class UsuarioDAO extends DAO {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE FROM \"Usuario\" WHERE \"idUsuario\" = " + idUsuario);
+			st.executeUpdate("DELETE FROM Usuario WHERE idUsuario = " + idUsuario);
 			st.close();
 			status = true;
 		} catch (SQLException u) {
@@ -68,7 +68,7 @@ public class UsuarioDAO extends DAO {
 		Usuario[] usuarios = null;
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM \"Usuario\"");
+			ResultSet rs = st.executeQuery("SELECT * FROM Usuario");
 			if (rs.next()) {
 				rs.last();
 				usuarios = new Usuario[rs.getRow()];
@@ -87,7 +87,7 @@ public class UsuarioDAO extends DAO {
 		Usuario usuario = null;
 		try {
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM \"Usuario\" WHERE \"idUsuario\" = " + idUsuario);
+			ResultSet rs = st.executeQuery("SELECT * FROM Usuario WHERE idUsuario = " + idUsuario);
 			if (rs.next())
 				usuario = newUsuarioFromRS(rs);
 			st.close();

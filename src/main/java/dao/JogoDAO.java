@@ -13,7 +13,7 @@ public class JogoDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO \"Jogo\" (titulo, descricao, url, display, pontuacao) VALUES (?, ?, ?, ?, ?);");
+					"INSERT INTO Jogo (titulo, descricao, url, display, pontuacao) VALUES (?, ?, ?, ?, ?);");
 			ps.setString(1, jogo.getTitulo());
 			ps.setString(2, jogo.getDescricao());
 			ps.setString(3, jogo.getUrl());
@@ -32,7 +32,7 @@ public class JogoDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"UPDATE \"Jogo\" SET titulo = ?, descricao = ?, url = ?, display = ?, pontuacao = ? WHERE \"idJogo\" = ?");
+					"UPDATE Jogo SET titulo = ?, descricao = ?, url = ?, display = ?, pontuacao = ? WHERE idJogo = ?");
 			ps.setString(1, jogo.getTitulo());
 			ps.setString(2, jogo.getDescricao());
 			ps.setString(3, jogo.getUrl());
@@ -52,7 +52,7 @@ public class JogoDAO extends DAO {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE FROM \"Jogo\" WHERE \"idJogo\" = " + idJogo);
+			st.executeUpdate("DELETE FROM Jogo WHERE idJogo = " + idJogo);
 			st.close();
 			status = true;
 		} catch (SQLException u) {
@@ -70,7 +70,7 @@ public class JogoDAO extends DAO {
 		Jogo[] jogos = null;
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM \"Jogo\"");
+			ResultSet rs = st.executeQuery("SELECT * FROM Jogo");
 			if (rs.next()) {
 				rs.last();
 				jogos = new Jogo[rs.getRow()];
@@ -89,7 +89,7 @@ public class JogoDAO extends DAO {
 		Jogo jogo = null;
 		try {
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM \"Jogo\" WHERE \"idJogo\" = " + idJogo);
+			ResultSet rs = st.executeQuery("SELECT * FROM Jogo WHERE idJogo = " + idJogo);
 			if (rs.next())
 				jogo = newJogoFromRS(rs);
 			st.close();
