@@ -1,49 +1,26 @@
 package service;
 
-import java.io.File;
-import java.util.Scanner;
-
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.JogoDAO;
 import model.Jogo;
 import spark.Request;
 import spark.Response;
 
-public class JogoService {
-	private final ObjectMapper objectMapper = new ObjectMapper();
-	private JogoDAO dao = new JogoDAO();
-	private boolean statusDAO;
+public class JogoService extends Service<JogoDAO> {
 
 	public JogoService() {
-		statusDAO = dao.conectar();
-	}
-
-	private String makeIndex() {
-		String html = "";
-		try {
-			Scanner sc = new Scanner(new File("src/main/resources/internal/indexJogo.html"), "UTF-8");
-			while (sc.hasNext()) {
-				html += sc.nextLine() + '\n';
-			}
-			sc.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (!statusDAO)
-			html = html.replaceFirst("~ERRO~", "Erro de conexão com banco de dados");
-		return html;
+		super(new JogoDAO(), "indexJogo.html");
 	}
 
 	public Object getListar(Request request, Response response) {
-		String html = makeIndex();
+		String html = construirPagina();
 		html = html.replaceFirst("~FETCH~", "/jogos");
 		return html;
 	}
 
 	public Object getLerJogo(Request request, Response response) {
-		String html = makeIndex();
+		String html = construirPagina();
 		html = html.replaceFirst("~FETCH~", "/jogo");
 		html = html.replaceFirst("~FBODY~", "{\"idJogo\":\"" + request.params(":idJogo") + "\"}");
 		return html;
@@ -99,26 +76,6 @@ public class JogoService {
 		} catch (Exception e) {
 			response.status(400);
 			return jsonPadrao("\"BAD REQUEST\"");
-		}
-	}
-
-	private String jsonPadrao(int tipo, String valor) {
-		return String.format("{\"tipo\":%d,\"valor\":%s}", tipo, valor);
-	}
-
-	private String jsonLista(Object[] o) {
-		try {
-			return jsonPadrao(1, objectMapper.writeValueAsString(o));
-		} catch (Exception e) {
-			return jsonPadrao(0, "Erro interno");
-		}
-	}
-
-	private String jsonPadrao(Object o) {
-		try {
-			return jsonPadrao(0, objectMapper.writeValueAsString(o));
-		} catch (Exception e) {
-			return jsonPadrao(0, "Erro interno");
 		}
 	}
 }
