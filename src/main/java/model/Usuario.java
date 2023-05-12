@@ -19,15 +19,6 @@ public class Usuario {
 		this(-1, null, null, null, -1);
 	}
 
-	@Override
-	public String toString() {
-		return "{\"idUsuario\":" + idUsuario
-				+ ", \"username\":\"" + username
-				+ "\", \"email\":\"" + email
-				+ "\", \"senha\":\"" + senha
-				+ "\", \"grupo\":\"" + grupo + "\"}";
-	}
-
 	public long getIdUsuario() {
 		return idUsuario;
 	}

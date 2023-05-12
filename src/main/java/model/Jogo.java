@@ -21,16 +21,6 @@ public class Jogo {
 		this(-1, null, null, null, null, -1);
 	}
 
-	@Override
-	public String toString() {
-		return "{\"idJogo\":" + idJogo
-				+ ", \"titulo\":\"" + titulo
-				+ "\", \"descricao\":\"" + descricao
-				+ "\", \"url\":\"" + url
-				+ "\", \"display\":\"" + display
-				+ "\", \"pontuacao\":\"" + pontuacao + "\"}";
-	}
-
 	public long getIdJogo() {
 		return idJogo;
 	}

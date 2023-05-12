@@ -62,8 +62,13 @@ public class JogoDAO extends DAO {
 	}
 
 	private Jogo newJogoFromRS(ResultSet rs) throws SQLException {
-		return new Jogo(rs.getLong("idJogo"), rs.getString("titulo"), rs.getString("descricao"),
-				rs.getString("url"), rs.getString("display"), rs.getInt("pontuacao"));
+		return new Jogo(
+				rs.getLong("idJogo"),
+				rs.getString("titulo"),
+				rs.getString("descricao"),
+				rs.getString("url"),
+				rs.getString("display"),
+				rs.getInt("pontuacao"));
 	}
 
 	public Jogo[] listarJogos() {

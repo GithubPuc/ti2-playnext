@@ -60,8 +60,12 @@ public class UsuarioDAO extends DAO {
 	}
 
 	private Usuario newUsuarioFromRS(ResultSet rs) throws SQLException {
-		return new Usuario(rs.getLong("idUsuario"), rs.getString("username"), rs.getString("email"),
-				rs.getString("senha"), rs.getInt("grupo"));
+		return new Usuario(
+				rs.getLong("idUsuario"),
+				rs.getString("username"),
+				rs.getString("email"),
+				rs.getString("senha"),
+				rs.getInt("grupo"));
 	}
 
 	public Usuario[] listarUsuarios() {
