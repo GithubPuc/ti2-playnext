@@ -12,7 +12,7 @@ import spark.Request;
 import spark.Response;
 
 public class UsuarioService {
-	private static final ObjectMapper objectMapper = new ObjectMapper();
+	private final ObjectMapper objectMapper = new ObjectMapper();
 	private UsuarioDAO dao = new UsuarioDAO();
 	private boolean statusDAO;
 
@@ -23,7 +23,7 @@ public class UsuarioService {
 	private String makeIndex() {
 		String html = "";
 		try {
-			Scanner sc = new Scanner(new File("src/main/resources/internal/indexUsuario.html"));
+			Scanner sc = new Scanner(new File("src/main/resources/internal/indexJogo.html"), "UTF-8");
 			while (sc.hasNext()) {
 				html += sc.nextLine() + '\n';
 			}
@@ -31,7 +31,8 @@ public class UsuarioService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		html = html.replaceFirst("~ERRO~", statusDAO ? "\"\"" : "Erro de conexão com banco de dados");
+		if (!statusDAO)
+			html = html.replaceFirst("~ERRO~", "Erro de conexão com banco de dados");
 		return html;
 	}
 

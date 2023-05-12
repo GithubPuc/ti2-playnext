@@ -17,7 +17,7 @@ public class JogoDAO {
 
 	public boolean conectar() {
 		String driverName = "org.postgresql.Driver";
-		String serverName = "localhost";
+		String serverName = "192.168.18.236";
 		String mydatabase = "teste";
 		int porta = 5432;
 		String url = "jdbc:postgresql://" + serverName + ":" + porta + "/" + mydatabase;

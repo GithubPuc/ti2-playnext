@@ -7,37 +7,37 @@ import service.UsuarioService;
 
 public class Principal {
 
-	private static JogoService jogoService = new JogoService();
-	private static UsuarioService usuarioService = new UsuarioService();
-
 	public static void main(String[] args) {
+		JogoService jogoService = new JogoService();
+		UsuarioService usuarioService = new UsuarioService();
+
 		port(4500);
 
-		// staticFiles.location("/public");
+		staticFiles.location("/public");
 
 		get("/", (request, response) -> {
 			response.redirect("/jogos");
 			return "";
 		});
 
-		post("/jogos", (request, response) -> jogoService.postListar(request, response));
-		get("/jogos", (request, response) -> jogoService.getListar(request, response));
+		post("/jogos", jogoService::postListar);
+		get("/jogos", jogoService::getListar);
 
-		post("/jogo", (request, response) -> jogoService.postLerJogo(request, response));
-		get("/jogo/:idJogo", (request, response) -> jogoService.getLerJogo(request, response));
+		post("/jogo", jogoService::postLerJogo);
+		get("/jogo/:idJogo", jogoService::getLerJogo);
 
-		post("/jogo/create", (request, response) -> jogoService.postCriarJogo(request, response));
-		post("/jogo/update", (request, response) -> jogoService.postAtualizarJogo(request, response));
-		post("/jogo/delete", (request, response) -> jogoService.postDeletarJogo(request, response));
+		post("/jogo/create", jogoService::postCriarJogo);
+		post("/jogo/update", jogoService::postAtualizarJogo);
+		post("/jogo/delete", jogoService::postDeletarJogo);
 
-		post("/usuarios", (request, response) -> usuarioService.postListar(request, response));
-		get("/usuarios", (request, response) -> usuarioService.getListar(request, response));
+		post("/usuarios", usuarioService::postListar);
+		get("/usuarios", usuarioService::getListar);
 
-		post("/usuario", (request, response) -> usuarioService.postLerUsuario(request, response));
-		get("/usuario/:idUsuario", (request, response) -> usuarioService.getLerUsuario(request, response));
+		post("/usuario", usuarioService::postLerUsuario);
+		get("/usuario/:idUsuario", usuarioService::getLerUsuario);
 
-		post("/usuario/create", (request, response) -> usuarioService.postCriarUsuario(request, response));
-		post("/usuario/update", (request, response) -> usuarioService.postAtualizarUsuario(request, response));
-		post("/usuario/delete", (request, response) -> usuarioService.postDeletarUsuario(request, response));
+		post("/usuario/create", usuarioService::postCriarUsuario);
+		post("/usuario/update", usuarioService::postAtualizarUsuario);
+		post("/usuario/delete", usuarioService::postDeletarUsuario);
 	}
 }
