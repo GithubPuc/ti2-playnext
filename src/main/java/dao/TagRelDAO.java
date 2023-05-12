@@ -12,8 +12,7 @@ public class TagRelDAO extends DAO {
 	public boolean inserirTagRel(TagRel tagRel) {
 		boolean status = false;
 		try {
-			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO TagRel (idJogo, idTag) VALUES (?, ?);");
+			PreparedStatement ps = conexao.prepareStatement("INSERT INTO TagRel (idJogo, idTag) VALUES (?, ?);");
 			ps.setLong(1, tagRel.getIdJogo());
 			ps.setLong(2, tagRel.getIdTag());
 			ps.executeUpdate();
@@ -25,14 +24,14 @@ public class TagRelDAO extends DAO {
 		return status;
 	}
 
-	public boolean atualizarTagRel(TagRel tagRel) {
+	public boolean atualizarTagRel(TagRel atual, long novoIdTag) {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"UPDATE TagRel SET idTag = ? WHERE idJogo = ? AND idTag = ?");
-			ps.setLong(1, tagRel.getIdTag());
-			ps.setLong(2, tagRel.getIdJogo());
-			ps.setLong(3, tagRel.getIdTag());
+			ps.setLong(1, novoIdTag);
+			ps.setLong(2, atual.getIdJogo());
+			ps.setLong(3, atual.getIdTag());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -42,11 +41,11 @@ public class TagRelDAO extends DAO {
 		return status;
 	}
 
-	public boolean excluirTagRel(long idTagRel) {
+	public boolean excluirTagRel(long idJogo, long idTag) {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE FROM TagRel WHERE idTagRel = " + idTagRel);
+			st.executeUpdate("DELETE FROM TagRel WHERE idJogo = " + idJogo + " AND idTag = " + idTag);
 			st.close();
 			status = true;
 		} catch (SQLException u) {
@@ -80,11 +79,11 @@ public class TagRelDAO extends DAO {
 		return tagRels;
 	}
 
-	public TagRel lerTagRel(long idTagRel) {
+	public TagRel lerTagRel(long idJogo, long idTag) {
 		TagRel tagRel = null;
 		try {
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM TagRel WHERE idTagRel = " + idTagRel);
+			ResultSet rs = st.executeQuery("SELECT * FROM TagRel WHERE idJogo = " + idJogo + " AND idTag = " + idTag);
 			if (rs.next())
 				tagRel = newTagRelFromRS(rs);
 			st.close();

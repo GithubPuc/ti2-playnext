@@ -22,7 +22,7 @@ public class UsuarioService extends Service<UsuarioDAO> {
 
 	public Object getLerUsuario(Request request, Response response) {
 		String html = construirPagina();
-		html = html.replaceFirst("~FETCH~", "/Usuario");
+		html = html.replaceFirst("~FETCH~", "/usuario");
 		html = html.replaceFirst("~FBODY~", "{\"idUsuario\":\"" + request.params(":idUsuario") + "\"}");
 		return html;
 	}

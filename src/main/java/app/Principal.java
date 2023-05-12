@@ -3,6 +3,7 @@ package app;
 import static spark.Spark.*;
 
 import service.JogoService;
+import service.TagRelService;
 import service.TagService;
 import service.UsuarioService;
 
@@ -12,6 +13,7 @@ public class Principal {
 		JogoService jogoService = new JogoService();
 		UsuarioService usuarioService = new UsuarioService();
 		TagService tagService = new TagService();
+		TagRelService tagRelService = new TagRelService();
 
 		port(4500);
 
@@ -54,5 +56,16 @@ public class Principal {
 		post("/tag/create", tagService::postCriarTag);
 		post("/tag/update", tagService::postAtualizarTag);
 		post("/tag/delete", tagService::postDeletarTag);
+
+		// TagRels
+		post("/tagrels", tagRelService::postListar);
+		get("/tagrels", tagRelService::getListar);
+
+		post("/tagrel", tagRelService::postLerTagRel);
+		get("/tagrel/:idJogo/:idTag/", tagRelService::getLerTagRel);
+
+		post("/tagrel/create", tagRelService::postCriarTagRel);
+		post("/tagrel/update", tagRelService::postAtualizarTagRel);
+		post("/tagrel/delete", tagRelService::postDeletarTagRel);
 	}
 }

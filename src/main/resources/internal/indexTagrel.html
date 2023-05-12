@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tags</title>
+    <title>TagRels</title>
     <script>
         // Server rendered values
         const err = `~ERRO~`;
@@ -19,17 +19,20 @@
 <body onload="bodyOnLoad()">
     <div id="forms">
         <form end="/tag/create" style="background-color: limegreen;">
-            <label>Nome:
-                <input type="text" name="tagName">
+            <label>idJogo:
+                <input type="number" name="idJogo">
             </label>
-            <label>Descrição:
-                <textarea name="tagDesc"></textarea>
+            <label>idTag:
+                <input type="number" name="idTag">
             </label>
             <br>
             <input type="submit" value="Criar">
         </form>
         <br>
         <form end="/tag" style="background-color: goldenrod;">
+            <label>idJogo:
+                <input type="number" name="idJogo">
+            </label>
             <label>idTag:
                 <input type="number" name="idTag">
             </label>
@@ -38,20 +41,23 @@
         </form>
         <br>
         <form end="/tag/update" style="background-color: darkslateblue;">
+            <label>idJogo:
+                <input type="number" name="idJogo">
+            </label>
             <label>idTag:
                 <input type="number" name="idTag">
             </label>
-            <label>Nome:
-                <input type="text" name="tagName">
-            </label>
-            <label>Descrição:
-                <textarea name="tagDesc"></textarea>
+            <label>idTag Nova:
+                <input type="number" name="newIdTag">
             </label>
             <br>
             <input type="submit" value="Atualizar">
         </form>
         <br>
         <form end="/tag/delete" style="background-color: crimson;">
+            <label>idJogo:
+                <input type="number" name="idJogo">
+            </label>
             <label>idTag:
                 <input type="number" name="idTag">
             </label>
