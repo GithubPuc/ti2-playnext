@@ -3,6 +3,7 @@ package app;
 import static spark.Spark.*;
 
 import service.JogoService;
+import service.TagService;
 import service.UsuarioService;
 
 public class Principal {
@@ -10,6 +11,7 @@ public class Principal {
 	public static void main(String[] args) {
 		JogoService jogoService = new JogoService();
 		UsuarioService usuarioService = new UsuarioService();
+		TagService tagService = new TagService();
 
 		port(4500);
 
@@ -20,6 +22,7 @@ public class Principal {
 			return "";
 		});
 
+		// Jogos
 		post("/jogos", jogoService::postListar);
 		get("/jogos", jogoService::getListar);
 
@@ -30,6 +33,7 @@ public class Principal {
 		post("/jogo/update", jogoService::postAtualizarJogo);
 		post("/jogo/delete", jogoService::postDeletarJogo);
 
+		// Usuarios
 		post("/usuarios", usuarioService::postListar);
 		get("/usuarios", usuarioService::getListar);
 
@@ -39,5 +43,16 @@ public class Principal {
 		post("/usuario/create", usuarioService::postCriarUsuario);
 		post("/usuario/update", usuarioService::postAtualizarUsuario);
 		post("/usuario/delete", usuarioService::postDeletarUsuario);
+
+		// Tags
+		post("/tags", tagService::postListar);
+		get("/tags", tagService::getListar);
+
+		post("/tag", tagService::postLerTag);
+		get("/tag/:idTag", tagService::getLerTag);
+
+		post("/tag/create", tagService::postCriarTag);
+		post("/tag/update", tagService::postAtualizarTag);
+		post("/tag/delete", tagService::postDeletarTag);
 	}
 }

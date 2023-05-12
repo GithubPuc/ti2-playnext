@@ -16,7 +16,7 @@ public class Service<D extends DAO> {
 		this.dao.conectar();
 	}
 
-	private String lerHTML(String filename) {
+	protected String lerHTML(String filename) {
 		Scanner sc = new Scanner(Service.class.getResourceAsStream("/internal/" + filename), "UTF-8");
 		String html = "";
 		while (sc.hasNext())

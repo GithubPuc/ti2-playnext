@@ -2,10 +2,11 @@ package service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import dao.UsuarioDAO;
-import model.Usuario;
 import spark.Request;
 import spark.Response;
+
+import dao.UsuarioDAO;
+import model.Usuario;
 
 public class UsuarioService extends Service<UsuarioDAO> {
 

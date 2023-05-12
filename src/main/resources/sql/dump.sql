@@ -235,6 +235,8 @@ INSERT INTO public.TagRel VALUES (3, 2);
 INSERT INTO public.TagRel VALUES (3, 3);
 INSERT INTO public.TagRel VALUES (4, 2);
 INSERT INTO public.TagRel VALUES (4, 3);
+INSERT INTO public.TagRel VALUES (5, 4);
+INSERT INTO public.TagRel VALUES (6, 4);
 
 
 --
