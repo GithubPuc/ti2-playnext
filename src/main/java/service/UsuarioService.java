@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import spark.Request;
 import spark.Response;
-
+import util.Seguranca;
 import dao.UsuarioDAO;
 import model.Usuario;
 
@@ -47,10 +47,10 @@ public class UsuarioService extends Service<UsuarioDAO> {
 	}
 
 	public Object postCriarUsuario(Request request, Response response) {
-		// TODO: encrypt password
 		response.type("application/json");
 		try {
 			Usuario u = objectMapper.readValue(request.body(), Usuario.class);
+			u.setSenha(Seguranca.hash(u.getSenha()));
 			return jsonPadrao(dao.inserirUsuario(u) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
@@ -59,10 +59,10 @@ public class UsuarioService extends Service<UsuarioDAO> {
 	}
 
 	public Object postAtualizarUsuario(Request request, Response response) {
-		// TODO: encrypt password
 		response.type("application/json");
 		try {
 			Usuario u = objectMapper.readValue(request.body(), Usuario.class);
+			u.setSenha(Seguranca.hash(u.getSenha()));
 			return jsonPadrao(dao.atualizarUsuario(u) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

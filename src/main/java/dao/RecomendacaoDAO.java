@@ -13,10 +13,11 @@ public class RecomendacaoDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO Recomendacao (idUsuario, idJogo, confianca) VALUES (?, ?, ?, ?);");
+					"INSERT INTO Recomendacao (idUsuario, idJogo, confianca, tipo) VALUES (?, ?, ?, ?, ?);");
 			ps.setLong(1, recomendacao.getIdUsuario());
 			ps.setLong(2, recomendacao.getIdJogo());
 			ps.setInt(3, recomendacao.getConfianca());
+			ps.setInt(4, recomendacao.getTipo());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -30,10 +31,11 @@ public class RecomendacaoDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"UPDATE Recomendacao SET idUsuario = ?, idJogo = ?, confianca = ? WHERE idRecomendacao = ?");
+					"UPDATE Recomendacao SET idUsuario = ?, idJogo = ?, confianca = ?, tipo = ? WHERE idRecomendacao = ?");
 			ps.setLong(1, recomendacao.getIdUsuario());
 			ps.setLong(2, recomendacao.getIdJogo());
 			ps.setInt(3, recomendacao.getConfianca());
+			ps.setInt(4, recomendacao.getTipo());
 			ps.setLong(5, recomendacao.getIdRecomendacao());
 			ps.executeUpdate();
 			ps.close();
@@ -62,7 +64,8 @@ public class RecomendacaoDAO extends DAO {
 				rs.getLong("idRecomendacao"),
 				rs.getLong("idUsuario"),
 				rs.getLong("idJogo"),
-				rs.getInt("confianca"));
+				rs.getInt("confianca"),
+				rs.getInt("tipo"));
 	}
 
 	public Recomendacao[] listarRecomendacoes() {

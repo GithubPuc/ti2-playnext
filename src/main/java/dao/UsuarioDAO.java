@@ -13,11 +13,11 @@ public class UsuarioDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO Usuario (username, email, senha, grupo) VALUES (?, ?, ?, ?);");
+					"INSERT INTO Usuario (username, email, senha, tipo) VALUES (?, ?, ?, ?);");
 			ps.setString(1, usuario.getUsername());
 			ps.setString(2, usuario.getEmail());
-			ps.setString(3, usuario.getSenha());
-			ps.setInt(4, usuario.getGrupo());
+			ps.setBytes(3, usuario.getSenha());
+			ps.setInt(4, usuario.getTipo());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -31,11 +31,11 @@ public class UsuarioDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"UPDATE Usuario SET username = ?, email = ?, senha = ?, grupo = ? WHERE idUsuario = ?");
+					"UPDATE Usuario SET username = ?, email = ?, senha = ?, tipo = ? WHERE idUsuario = ?");
 			ps.setString(1, usuario.getUsername());
 			ps.setString(2, usuario.getEmail());
-			ps.setString(3, usuario.getSenha());
-			ps.setInt(4, usuario.getGrupo());
+			ps.setBytes(3, usuario.getSenha());
+			ps.setInt(4, usuario.getTipo());
 			ps.setLong(5, usuario.getIdUsuario());
 			ps.executeUpdate();
 			ps.close();
@@ -64,8 +64,8 @@ public class UsuarioDAO extends DAO {
 				rs.getLong("idUsuario"),
 				rs.getString("username"),
 				rs.getString("email"),
-				rs.getString("senha"),
-				rs.getInt("grupo"));
+				rs.getBytes("senha"),
+				rs.getInt("tipo"));
 	}
 
 	public Usuario[] listarUsuarios() {

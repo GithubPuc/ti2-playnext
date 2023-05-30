@@ -5,16 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.TagRel;
+import model.TagLink;
 
-public class TagRelDAO extends DAO {
+public class TagLinkDAO extends DAO {
 
-	public boolean inserirTagRel(TagRel tagRel) {
+	public boolean inserirTagLink(TagLink ttagLink) {
 		boolean status = false;
 		try {
-			PreparedStatement ps = conexao.prepareStatement("INSERT INTO TagRel (idJogo, idTag) VALUES (?, ?);");
-			ps.setLong(1, tagRel.getIdJogo());
-			ps.setLong(2, tagRel.getIdTag());
+			PreparedStatement ps = conexao.prepareStatement("INSERT INTO TagLink (idJogo, idTag) VALUES (?, ?);");
+			ps.setLong(1, ttagLink.getIdJogo());
+			ps.setLong(2, ttagLink.getIdTag());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -24,11 +24,11 @@ public class TagRelDAO extends DAO {
 		return status;
 	}
 
-	public boolean atualizarTagRel(TagRel atual, long novoIdTag) {
+	public boolean atualizarTagLink(TagLink atual, long novoIdTag) {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"UPDATE TagRel SET idTag = ? WHERE idJogo = ? AND idTag = ?");
+					"UPDATE TagLink SET idTag = ? WHERE idJogo = ? AND idTag = ?");
 			ps.setLong(1, novoIdTag);
 			ps.setLong(2, atual.getIdJogo());
 			ps.setLong(3, atual.getIdTag());
@@ -41,11 +41,11 @@ public class TagRelDAO extends DAO {
 		return status;
 	}
 
-	public boolean excluirTagRel(long idJogo, long idTag) {
+	public boolean excluirTagLink(long idJogo, long idTag) {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE FROM TagRel WHERE idJogo = " + idJogo + " AND idTag = " + idTag);
+			st.executeUpdate("DELETE FROM TagLink WHERE idJogo = " + idJogo + " AND idTag = " + idTag);
 			st.close();
 			status = true;
 		} catch (SQLException u) {
@@ -54,42 +54,42 @@ public class TagRelDAO extends DAO {
 		return status;
 	}
 
-	private TagRel newTagRelFromRS(ResultSet rs) throws SQLException {
-		return new TagRel(
+	private TagLink newTagLinkFromRS(ResultSet rs) throws SQLException {
+		return new TagLink(
 				rs.getLong("idJogo"),
 				rs.getLong("idTag"));
 	}
 
-	public TagRel[] listarTagRels() {
-		TagRel[] tagRels = null;
+	public TagLink[] listarTagLinks() {
+		TagLink[] ttagLinks = null;
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM TagRel");
+			ResultSet rs = st.executeQuery("SELECT * FROM TagLink");
 			if (rs.next()) {
 				rs.last();
-				tagRels = new TagRel[rs.getRow()];
+				ttagLinks = new TagLink[rs.getRow()];
 				rs.beforeFirst();
 				for (int i = 0; rs.next(); i++)
-					tagRels[i] = newTagRelFromRS(rs);
+					ttagLinks[i] = newTagLinkFromRS(rs);
 			}
 			st.close();
 		} catch (SQLException u) {
 			throw new RuntimeException(u);
 		}
-		return tagRels;
+		return ttagLinks;
 	}
 
-	public TagRel lerTagRel(long idJogo, long idTag) {
-		TagRel tagRel = null;
+	public TagLink lerTagLink(long idJogo, long idTag) {
+		TagLink ttagLink = null;
 		try {
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM TagRel WHERE idJogo = " + idJogo + " AND idTag = " + idTag);
+			ResultSet rs = st.executeQuery("SELECT * FROM TagLink WHERE idJogo = " + idJogo + " AND idTag = " + idTag);
 			if (rs.next())
-				tagRel = newTagRelFromRS(rs);
+				ttagLink = newTagLinkFromRS(rs);
 			st.close();
 		} catch (SQLException u) {
 			throw new RuntimeException(u);
 		}
-		return tagRel;
+		return ttagLink;
 	}
 }

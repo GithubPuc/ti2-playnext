@@ -1,18 +1,20 @@
 package model;
 
+// TODO: Criar perfil de Usuario com "imagem de perfil" e "opções de display", etc.
+
 public class Usuario {
 	private long idUsuario;
-	private String username;
+	private String username; //TODO: Mover campo "username" para perfil.
 	private String email;
-	private String senha;
-	private int grupo;
+	private byte[] senha;
+	private int tipo;
 
-	public Usuario(long idUsuario, String username, String email, String senha, int grupo) {
+	public Usuario(long idUsuario, String username, String email, byte[] senha, int tipo) {
 		this.idUsuario = idUsuario;
 		this.username = username;
 		this.email = email;
 		this.senha = senha;
-		this.grupo = grupo;
+		this.tipo = tipo;
 	}
 
 	public Usuario() {
@@ -43,19 +45,19 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getSenha() {
+	public byte[] getSenha() {
 		return senha;
 	}
 
-	public void setSenha(String senha) {
+	public void setSenha(byte[] senha) {
 		this.senha = senha;
 	}
 
-	public int getGrupo() {
-		return grupo;
+	public int getTipo() {
+		return tipo;
 	}
 
-	public void setGrupo(int grupo) {
-		this.grupo = grupo;
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
 	}
 }

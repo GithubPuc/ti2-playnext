@@ -38,7 +38,7 @@ CREATE TABLE public.Interesse (
     idUsuario bigint NOT NULL,
     idJogo bigint NOT NULL,
     tipo smallint NOT NULL,
-    peso smallint
+    peso integer
 );
 
 
@@ -96,7 +96,8 @@ CREATE TABLE public.Recomendacao (
     idRecomendacao bigint NOT NULL,
     idUsuario bigint NOT NULL,
     idJogo bigint NOT NULL,
-    confianca smallint
+    confianca smallint,
+    tipo smallint DEFAULT 0
 );
 
 
@@ -130,16 +131,16 @@ CREATE TABLE public.Tag (
 ALTER TABLE public.Tag OWNER TO ti2cc;
 
 --
--- Name: TagRel; Type: TABLE; Schema: public; Owner: ti2cc
+-- Name: TagLink; Type: TABLE; Schema: public; Owner: ti2cc
 --
 
-CREATE TABLE public.TagRel (
+CREATE TABLE public.TagLink (
     idJogo bigint NOT NULL,
     idTag integer NOT NULL
 );
 
 
-ALTER TABLE public.TagRel OWNER TO ti2cc;
+ALTER TABLE public.TagLink OWNER TO ti2cc;
 
 --
 -- Name: Tag_idTag_seq; Type: SEQUENCE; Schema: public; Owner: ti2cc
@@ -160,10 +161,10 @@ ALTER TABLE public.Tag ALTER COLUMN idTag ADD GENERATED ALWAYS AS IDENTITY (
 
 CREATE TABLE public.Usuario (
     idUsuario bigint NOT NULL,
-    username character varying,
-    email character varying,
-    senha character(64) NOT NULL,
-    grupo smallint DEFAULT 0
+    username character varying(31),
+    email character varying(255),
+    senha bytea NOT NULL,
+    tipo smallint DEFAULT 0
 );
 
 
@@ -208,9 +209,9 @@ INSERT INTO public.Jogo OVERRIDING SYSTEM VALUE VALUES (6, 'Cobras and Elevators
 -- Data for Name: Recomendacao; Type: TABLE DATA; Schema: public; Owner: ti2cc
 --
 
-INSERT INTO public.Recomendacao OVERRIDING SYSTEM VALUE VALUES (1, 1, 1, 95);
-INSERT INTO public.Recomendacao OVERRIDING SYSTEM VALUE VALUES (2, 2, 3, 95);
-INSERT INTO public.Recomendacao OVERRIDING SYSTEM VALUE VALUES (3, 3, 6, 80);
+INSERT INTO public.Recomendacao OVERRIDING SYSTEM VALUE VALUES (1, 1, 1, 95, 1);
+INSERT INTO public.Recomendacao OVERRIDING SYSTEM VALUE VALUES (2, 2, 3, 95, 1);
+INSERT INTO public.Recomendacao OVERRIDING SYSTEM VALUE VALUES (3, 3, 6, 80, 1);
 
 
 --
@@ -224,28 +225,28 @@ INSERT INTO public.Tag OVERRIDING SYSTEM VALUE VALUES (4, 'Party', 'Games that r
 
 
 --
--- Data for Name: TagRel; Type: TABLE DATA; Schema: public; Owner: ti2cc
+-- Data for Name: TagLink; Type: TABLE DATA; Schema: public; Owner: ti2cc
 --
 
-INSERT INTO public.TagRel VALUES (1, 1);
-INSERT INTO public.TagRel VALUES (1, 2);
-INSERT INTO public.TagRel VALUES (2, 1);
-INSERT INTO public.TagRel VALUES (2, 2);
-INSERT INTO public.TagRel VALUES (3, 2);
-INSERT INTO public.TagRel VALUES (3, 3);
-INSERT INTO public.TagRel VALUES (4, 2);
-INSERT INTO public.TagRel VALUES (4, 3);
-INSERT INTO public.TagRel VALUES (5, 4);
-INSERT INTO public.TagRel VALUES (6, 4);
+INSERT INTO public.TagLink VALUES (1, 1);
+INSERT INTO public.TagLink VALUES (1, 2);
+INSERT INTO public.TagLink VALUES (2, 1);
+INSERT INTO public.TagLink VALUES (2, 2);
+INSERT INTO public.TagLink VALUES (3, 2);
+INSERT INTO public.TagLink VALUES (3, 3);
+INSERT INTO public.TagLink VALUES (4, 2);
+INSERT INTO public.TagLink VALUES (4, 3);
+INSERT INTO public.TagLink VALUES (5, 4);
+INSERT INTO public.TagLink VALUES (6, 4);
 
 
 --
 -- Data for Name: Usuario; Type: TABLE DATA; Schema: public; Owner: ti2cc
 --
 
-INSERT INTO public.Usuario OVERRIDING SYSTEM VALUE VALUES (1, 'All_V_2005', 'alvim@esq.com', 'XV9zLLi8KRmtyWz5ZHGTgpr3eZklhF56Cj2qtuhanSvmY8vuN2bEZGGCuM8EZIjl', 2);
-INSERT INTO public.Usuario OVERRIDING SYSTEM VALUE VALUES (2, 'Laurencio', 'laur@enc.com', 'GJSNnYmBEmzxgbssQQ6jo4116xJXnfjYTeTfWNz3tJoRcB2Xb65SMPLdhG8QLNAu', 1);
-INSERT INTO public.Usuario OVERRIDING SYSTEM VALUE VALUES (3, 'Joao', 'jojo@oao.com', 'oIfMNWZ7KiZ6rBLwAddBLUMgKXDuYuhN5roVPxm2hMeuVMtHuhGnFWfFc4neeV2M', 1);
+INSERT INTO public.Usuario OVERRIDING SYSTEM VALUE VALUES (1, 'All_V_2005', 'alvim@esq.com', '\xD6190AAA534471B220D2AB7603A24AEE34257C989712DBB5E6B0819F373A1F54', 2);
+INSERT INTO public.Usuario OVERRIDING SYSTEM VALUE VALUES (2, 'Laurencio', 'laur@enc.com', '\x87C9BEF270AB9A1008612F90A6894C0B34A84983132431958EB8AE5684C0C98F4', 1);
+INSERT INTO public.Usuario OVERRIDING SYSTEM VALUE VALUES (3, 'Joao', 'jojo@oao.com', '\xAF2AF07B3DBC70A6E1523DCCE01641A5F566FA86BCCB963FC43D5B98A456566D', 1);
 
 
 --
@@ -340,18 +341,18 @@ ALTER TABLE ONLY public.Recomendacao
 
 
 --
--- Name: TagRel idJogo_fk; Type: FK CONSTRAINT; Schema: public; Owner: ti2cc
+-- Name: TagLink idJogo_fk; Type: FK CONSTRAINT; Schema: public; Owner: ti2cc
 --
 
-ALTER TABLE ONLY public.TagRel
+ALTER TABLE ONLY public.TagLink
     ADD CONSTRAINT idJogo_fk FOREIGN KEY (idJogo) REFERENCES public.Jogo(idJogo);
 
 
 --
--- Name: TagRel idTag_fk; Type: FK CONSTRAINT; Schema: public; Owner: ti2cc
+-- Name: TagLink idTag_fk; Type: FK CONSTRAINT; Schema: public; Owner: ti2cc
 --
 
-ALTER TABLE ONLY public.TagRel
+ALTER TABLE ONLY public.TagLink
     ADD CONSTRAINT idTag_fk FOREIGN KEY (idTag) REFERENCES public.Tag(idTag);
 
 

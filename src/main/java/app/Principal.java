@@ -5,7 +5,7 @@ import static spark.Spark.*;
 import service.InteresseService;
 import service.JogoService;
 import service.RecomendacaoService;
-import service.TagRelService;
+import service.TagLinkService;
 import service.TagService;
 import service.UsuarioService;
 
@@ -15,7 +15,7 @@ public class Principal {
 		JogoService jogoService = new JogoService();
 		UsuarioService usuarioService = new UsuarioService();
 		TagService tagService = new TagService();
-		TagRelService tagRelService = new TagRelService();
+		TagLinkService ttagLinkService = new TagLinkService();
 		InteresseService interesseService = new InteresseService();
 		RecomendacaoService recomendacaoService = new RecomendacaoService();
 
@@ -63,16 +63,16 @@ public class Principal {
 		post("/tag/update", tagService::postAtualizarTag);
 		post("/tag/delete", tagService::postDeletarTag);
 
-		// TagRels
-		post("/tagrels", tagRelService::postListar);
-		get("/tagrels", tagRelService::getListar);
+		// TagLinks
+		post("/taglinks", ttagLinkService::postListar);
+		get("/taglinks", ttagLinkService::getListar);
 
-		post("/tagrel", tagRelService::postLerTagRel);
-		get("/tagrel/:idJogo/:idTag/", tagRelService::getLerTagRel);
+		post("/taglink", ttagLinkService::postLerTagLink);
+		get("/taglink/:idJogo/:idTag/", ttagLinkService::getLerTagLink);
 
-		post("/tagrel/create", tagRelService::postCriarTagRel);
-		post("/tagrel/update", tagRelService::postAtualizarTagRel);
-		post("/tagrel/delete", tagRelService::postDeletarTagRel);
+		post("/taglink/create", ttagLinkService::postCriarTagLink);
+		post("/taglink/update", ttagLinkService::postAtualizarTagLink);
+		post("/taglink/delete", ttagLinkService::postDeletarTagLink);
 
 		// Interesses
 		post("/interesses", interesseService::postListar);

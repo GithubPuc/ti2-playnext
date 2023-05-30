@@ -86,7 +86,7 @@ public class TagDAO extends DAO {
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = st.executeQuery(
-					"SELECT * FROM Tag INNER JOIN TagRel ON Tag.idTag = TagRel.idTag WHERE idJogo = " + idJogo);
+					"SELECT * FROM Tag INNER JOIN TagLink ON Tag.idTag = TagLink.idTag WHERE idJogo = " + idJogo);
 			if (rs.next()) {
 				rs.last();
 				tags = new Tag[rs.getRow()];
