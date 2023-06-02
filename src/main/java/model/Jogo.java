@@ -2,14 +2,25 @@ package model;
 
 public class Jogo {
 	private long idJogo;
+	private Long steamIdJogo;
 	private String titulo;
 	private String descricao;
 	private String url;
 	private String display;
 	private int pontuacao;
+	
+	public Long getSteamIdJogo() {
+		return steamIdJogo;
+	}
 
-	public Jogo(long idJogo, String titulo, String descricao, String url, String display, int pontuacao) {
+	public void setSteamIdJogo(Long steamIdJogo) {
+		this.steamIdJogo = steamIdJogo;
+	}
+
+	public Jogo(long idJogo, Long steamIdJogo, String titulo, String descricao, String url, String display,
+			int pontuacao) {
 		this.idJogo = idJogo;
+		this.steamIdJogo = steamIdJogo;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.url = url;
@@ -18,7 +29,7 @@ public class Jogo {
 	}
 
 	public Jogo() {
-		this(-1, null, null, null, null, -1);
+		this(-1L, -1L, null, null, null, null, -1);
 	}
 
 	public long getIdJogo() {
