@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <script>
+        // Server rendered values
+        const err = `~ERRO~`;
+        const populate = `~FETCH~`;
+        const fbody = `~FBODY~`;
+    </script>
+    <script src="scripts/basico.js"></script>
+    <link rel="stylesheet" href="styles/basico.css">
+</head>
+
+<body onload="bodyOnLoad()">
+    <div id="forms">
+        <form end="/usuario/create" style="background-color: limegreen;">
+            <label>Username:
+                <input type="text" name="username">
+            </label>
+            <label>Email:
+                <input type="text" name="email">
+            </label>
+            <label>Senha:
+                <!-- Campos <input> sem "name" não são enviados ao sumbeter o form -->
+                <input type="password" class="pre-B64">
+                <input type="hidden" class="pos-B64" name="senha">
+                <!-- A senha deve ser codificada em Base64. Veja script no fim da página -->
+            </label>
+            <label>Tipo:
+                <input type="number" name="tipo">
+            </label>
+            <br>
+            <input type="submit" value="Criar">
+        </form>
+        <br>
+        <form end="/usuario" style="background-color: goldenrod;">
+            <label>idUsuario:
+                <input type="number" name="idUsuario">
+            </label>
+            <br>
+            <input type="submit" value="Listar">
+        </form>
+        <br>
+        <form end="/usuario/update" style="background-color: darkslateblue;">
+            <label>idUsuario:
+                <input type="number" name="idUsuario">
+            </label>
+            <label>Username:
+                <input type="text" name="username">
+            </label>
+            <label>Email:
+                <input type="text" name="email">
+            </label>
+            <label>Senha:
+                <!-- Campos <input> sem "name" não são enviados ao sumbeter o form -->
+                <input type="password" class="pre-B64">
+                <input type="hidden" class="pos-B64" name="senha">
+                <!-- A senha deve ser codificada em Base64. Veja script no fim da página -->
+            </label>
+            <label>Tipo:
+                <input type="number" name="tipo">
+            </label>
+            <br>
+            <input type="submit" value="Atualizar">
+        </form>
+        <br>
+        <form end="/usuario/delete" style="background-color: crimson;">
+            <label>idUsuario:
+                <input type="number" name="idUsuario">
+            </label>
+            <br>
+            <input type="submit" value="Deletar">
+        </form>
+    </div>
+
+    <script>
+        function tornar_b64(string) {
+            return window.btoa(unescape(encodeURIComponent(string))); // Escapa a string (caso o usuário use caractéres alem do Base64, por exemplo Han ou emoji)
+        }
+        const visivel = ".pre-B64", real = ".pos-B64";
+        document.querySelectorAll(visivel).forEach(
+            // Todos os campos visiveis pro usuarios quando alterados ("change") terão o valor traduzido inserido no campo real que será enviado ao submeter o form
+            pre => pre.addEventListener("change", () => pre.parentElement.querySelector(real).value = tornar_b64(pre.value))
+        );
+    </script>
+
+    <br>
+    <div id="tabela">
+        <h3 id="acao"></h3>
+        <ol id="lista">
+            <!--lista-->
+        </ol>
+    </div>
+    <style>
+        html {
+            background-color: black;
+            color: white;
+        }
+
+        form {
+            padding-left: 1em;
+            padding-top: 1em;
+        }
+
+        label {
+            display: inline-block;
+        }
+
+        input[type=number] {
+            width: 5em;
+        }
+
+        input[type=submit] {
+            font-size: large;
+            margin: 1em;
+        }
+
+        form {
+            color: black;
+        }
+    </style>
+</body>
+
+</html>
