@@ -5,6 +5,7 @@ import static spark.Spark.*;
 import service.InteresseService;
 import service.JogoService;
 import service.RecomendacaoService;
+import service.SteamSyncService;
 import service.TagLinkService;
 import service.TagService;
 import service.UsuarioService;
@@ -18,6 +19,7 @@ public class Principal {
 		TagLinkService ttagLinkService = new TagLinkService();
 		InteresseService interesseService = new InteresseService();
 		RecomendacaoService recomendacaoService = new RecomendacaoService();
+		SteamSyncService steamSyncService = new SteamSyncService();
 
 		port(4500);
 
@@ -99,5 +101,7 @@ public class Principal {
 		post("/recomendacao/create", recomendacaoService::postCriarRecomendacao);
 		post("/recomendacao/update", recomendacaoService::postAtualizarRecomendacao);
 		post("/recomendacao/delete", recomendacaoService::postDeletarRecomendacao);
+
+		post("/sincronizar/steam", steamSyncService::postSincronizar);
 	}
 }

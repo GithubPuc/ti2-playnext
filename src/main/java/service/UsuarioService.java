@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import spark.Request;
 import spark.Response;
 import util.Seguranca;
+import util.WebUtil;
 import dao.UsuarioDAO;
 import model.Usuario;
 
@@ -29,7 +30,7 @@ public class UsuarioService extends Service<UsuarioDAO> {
 
 	public Object postListar(Request request, Response response) {
 		response.type("application/json");
-		return jsonLista(dao.listarUsuarios());
+		return WebUtil.jsonLista(dao.listarUsuarios());
 	}
 
 	public Object postLerUsuario(Request request, Response response) {
@@ -38,11 +39,11 @@ public class UsuarioService extends Service<UsuarioDAO> {
 			JsonNode parent = objectMapper.readTree(request.body());
 			Long idUsuario = parent.path("idUsuario").asLong();
 			if (idUsuario == 0L)
-				return jsonLista(dao.listarUsuarios());
-			return jsonPadrao(dao.lerUsuario(idUsuario));
+				return WebUtil.jsonLista(dao.listarUsuarios());
+			return WebUtil.jsonPadrao(dao.lerUsuario(idUsuario));
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -51,10 +52,10 @@ public class UsuarioService extends Service<UsuarioDAO> {
 		try {
 			Usuario u = objectMapper.readValue(request.body(), Usuario.class);
 			u.setSenha(Seguranca.hash(u.getSenha()));
-			return jsonPadrao(dao.inserirUsuario(u) ? "Sucesso" : "Erro interno");
+			return WebUtil.jsonPadrao(dao.inserirUsuario(u) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -63,10 +64,10 @@ public class UsuarioService extends Service<UsuarioDAO> {
 		try {
 			Usuario u = objectMapper.readValue(request.body(), Usuario.class);
 			u.setSenha(Seguranca.hash(u.getSenha()));
-			return jsonPadrao(dao.atualizarUsuario(u) ? "Sucesso" : "Erro interno");
+			return WebUtil.jsonPadrao(dao.atualizarUsuario(u) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -75,10 +76,10 @@ public class UsuarioService extends Service<UsuarioDAO> {
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
 			Long idUsuario = parent.path("idUsuario").asLong();
-			return jsonPadrao(0, dao.excluirUsuario(idUsuario) ? "Excluido" : "Erro interno");
+			return WebUtil.jsonPadrao(0, dao.excluirUsuario(idUsuario) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 }

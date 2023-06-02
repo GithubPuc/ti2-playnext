@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import spark.Request;
 import spark.Response;
-
+import util.WebUtil;
 import dao.JogoDAO;
 import model.Jogo;
 
@@ -29,7 +29,7 @@ public class JogoService extends Service<JogoDAO> {
 
 	public Object postListar(Request request, Response response) {
 		response.type("application/json");
-		return jsonLista(dao.listarJogos());
+		return WebUtil.jsonLista(dao.listarJogos());
 	}
 
 	public Object postLerJogo(Request request, Response response) {
@@ -38,11 +38,11 @@ public class JogoService extends Service<JogoDAO> {
 			JsonNode parent = objectMapper.readTree(request.body());
 			Long idJogo = parent.path("idJogo").asLong();
 			if (idJogo == 0L)
-				return jsonLista(dao.listarJogos());
-			return jsonPadrao(dao.lerJogo(idJogo));
+				return WebUtil.jsonLista(dao.listarJogos());
+			return WebUtil.jsonPadrao(dao.lerJogo(idJogo));
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -50,10 +50,10 @@ public class JogoService extends Service<JogoDAO> {
 		response.type("application/json");
 		try {
 			Jogo j = objectMapper.readValue(request.body(), Jogo.class);
-			return jsonPadrao(dao.inserirJogo(j) ? "Sucesso" : "Erro interno");
+			return WebUtil.jsonPadrao(dao.inserirJogo(j) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -61,10 +61,10 @@ public class JogoService extends Service<JogoDAO> {
 		response.type("application/json");
 		try {
 			Jogo j = objectMapper.readValue(request.body(), Jogo.class);
-			return jsonPadrao(dao.atualizarJogo(j) ? "Sucesso" : "Erro interno");
+			return WebUtil.jsonPadrao(dao.atualizarJogo(j) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -73,10 +73,10 @@ public class JogoService extends Service<JogoDAO> {
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
 			Long idJogo = parent.path("idJogo").asLong();
-			return jsonPadrao(0, dao.excluirJogo(idJogo) ? "Excluido" : "Erro interno");
+			return WebUtil.jsonPadrao(0, dao.excluirJogo(idJogo) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 }

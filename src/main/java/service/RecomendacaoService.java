@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import spark.Request;
 import spark.Response;
-
+import util.WebUtil;
 import dao.RecomendacaoDAO;
 import model.Recomendacao;
 
@@ -29,7 +29,7 @@ public class RecomendacaoService extends Service<RecomendacaoDAO> {
 
 	public Object postListar(Request request, Response response) {
 		response.type("application/json");
-		return jsonLista(dao.listarRecomendacoes());
+		return WebUtil.jsonLista(dao.listarRecomendacoes());
 	}
 
 	public Object postListarUsuario(Request request, Response response) {
@@ -37,10 +37,10 @@ public class RecomendacaoService extends Service<RecomendacaoDAO> {
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
 			Long idRecomendacao = parent.path("idUsuario").asLong();
-			return jsonPadrao(dao.listarRecomendacoesParaUsuario(idRecomendacao));
+			return WebUtil.jsonPadrao(dao.listarRecomendacoesParaUsuario(idRecomendacao));
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -50,11 +50,11 @@ public class RecomendacaoService extends Service<RecomendacaoDAO> {
 			JsonNode parent = objectMapper.readTree(request.body());
 			Long idRecomendacao = parent.path("idRecomendacao").asLong();
 			if (idRecomendacao == 0L)
-				return jsonLista(dao.listarRecomendacoes());
-			return jsonPadrao(dao.lerRecomendacao(idRecomendacao));
+				return WebUtil.jsonLista(dao.listarRecomendacoes());
+			return WebUtil.jsonPadrao(dao.lerRecomendacao(idRecomendacao));
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -62,10 +62,10 @@ public class RecomendacaoService extends Service<RecomendacaoDAO> {
 		response.type("application/json");
 		try {
 			Recomendacao in = objectMapper.readValue(request.body(), Recomendacao.class);
-			return jsonPadrao(dao.inserirRecomendacao(in) ? "Sucesso" : "Erro interno");
+			return WebUtil.jsonPadrao(dao.inserirRecomendacao(in) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -73,10 +73,10 @@ public class RecomendacaoService extends Service<RecomendacaoDAO> {
 		response.type("application/json");
 		try {
 			Recomendacao in = objectMapper.readValue(request.body(), Recomendacao.class);
-			return jsonPadrao(dao.atualizarRecomendacao(in) ? "Sucesso" : "Erro interno");
+			return WebUtil.jsonPadrao(dao.atualizarRecomendacao(in) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -85,10 +85,10 @@ public class RecomendacaoService extends Service<RecomendacaoDAO> {
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
 			Long idRecomendacao = parent.path("idRecomendacao").asLong();
-			return jsonPadrao(0, dao.excluirRecomendacao(idRecomendacao) ? "Excluido" : "Erro interno");
+			return WebUtil.jsonPadrao(0, dao.excluirRecomendacao(idRecomendacao) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 }

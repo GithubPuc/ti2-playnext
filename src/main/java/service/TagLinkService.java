@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import spark.Request;
 import spark.Response;
-
+import util.WebUtil;
 import dao.TagLinkDAO;
 import model.TagLink;
 
@@ -31,7 +31,7 @@ public class TagLinkService extends Service<TagLinkDAO> {
 
 	public Object postListar(Request request, Response response) {
 		response.type("application/json");
-		return jsonLista(dao.listarTagLinks());
+		return WebUtil.jsonLista(dao.listarTagLinks());
 	}
 
 	public Object postLerTagLink(Request request, Response response) {
@@ -41,11 +41,11 @@ public class TagLinkService extends Service<TagLinkDAO> {
 			Long idJogo = parent.path("idJogo").asLong();
 			Long idTag = parent.path("idTag").asLong();
 			if (idTag == 0L)
-				return jsonLista(dao.listarTagLinks());
-			return jsonPadrao(dao.lerTagLink(idJogo, idTag));
+				return WebUtil.jsonLista(dao.listarTagLinks());
+			return WebUtil.jsonPadrao(dao.lerTagLink(idJogo, idTag));
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -53,10 +53,10 @@ public class TagLinkService extends Service<TagLinkDAO> {
 		response.type("application/json");
 		try {
 			TagLink tr = objectMapper.readValue(request.body(), TagLink.class);
-			return jsonPadrao(dao.inserirTagLink(tr) ? "Sucesso" : "Erro interno");
+			return WebUtil.jsonPadrao(dao.inserirTagLink(tr) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -68,10 +68,10 @@ public class TagLinkService extends Service<TagLinkDAO> {
 			tr.setIdJogo(parent.path("idJogo").asLong());
 			tr.setIdTag(parent.path("idTag").asLong());
 			long novoIdTag = parent.path("newIdTag").asLong();
-			return jsonPadrao(dao.atualizarTagLink(tr, novoIdTag) ? "Sucesso" : "Erro interno");
+			return WebUtil.jsonPadrao(dao.atualizarTagLink(tr, novoIdTag) ? "Sucesso" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 
@@ -81,10 +81,10 @@ public class TagLinkService extends Service<TagLinkDAO> {
 			JsonNode parent = objectMapper.readTree(request.body());
 			Long idJogo = parent.path("idJogo").asLong();
 			Long idTag = parent.path("idTag").asLong();
-			return jsonPadrao(0, dao.excluirTagLink(idJogo, idTag) ? "Excluido" : "Erro interno");
+			return WebUtil.jsonPadrao(0, dao.excluirTagLink(idJogo, idTag) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);
-			return jsonPadrao("\"BAD REQUEST\"");
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
 		}
 	}
 }
