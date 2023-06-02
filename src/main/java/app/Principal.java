@@ -8,7 +8,10 @@ import service.RecomendacaoService;
 import service.SteamSyncService;
 import service.TagLinkService;
 import service.TagService;
+import service.PerfilService;
+import service.AventuraService;
 import service.UsuarioService;
+import service.HomeService;
 
 public class Principal {
 
@@ -19,14 +22,17 @@ public class Principal {
 		TagLinkService ttagLinkService = new TagLinkService();
 		InteresseService interesseService = new InteresseService();
 		RecomendacaoService recomendacaoService = new RecomendacaoService();
+		PerfilService perfilService = new PerfilService();
+		AventuraService aventuraService = new AventuraService();
 		SteamSyncService steamSyncService = new SteamSyncService();
+		HomeService homeService = new HomeService();
 
 		port(4500);
 
 		staticFiles.location("/public");
 
 		get("/", (request, response) -> {
-			response.redirect("/jogos");
+			response.redirect("/perfil");
 			return "";
 		});
 
@@ -41,6 +47,17 @@ public class Principal {
 		post("/jogo/update", jogoService::postAtualizarJogo);
 		post("/jogo/delete", jogoService::postDeletarJogo);
 
+		// Home
+		post("/home", homeService::postListar);
+		get("/home", homeService::getListar);
+
+		post("/home", homeService::postLerHome);
+		get("/home/:idhome", homeService::getLerHome);
+
+		post("/home/create", homeService::postCriarHome);
+		post("/home/update", homeService::postAtualizarHome);
+		post("/home/delete", homeService::postDeletarHome);
+
 		// Usuarios
 		post("/usuarios", usuarioService::postListar);
 		get("/usuarios", usuarioService::getListar);
@@ -51,6 +68,17 @@ public class Principal {
 		post("/usuario/create", usuarioService::postCriarUsuario);
 		post("/usuario/update", usuarioService::postAtualizarUsuario);
 		post("/usuario/delete", usuarioService::postDeletarUsuario);
+
+		// Perfil
+		post("/perfil", perfilService::postListar);
+		get("/perfil", perfilService::getListar);
+
+		post("/perfil", perfilService::postLerPerfil);
+		get("/perfil/:idperfil", perfilService::getLerPerfil);
+
+		post("/perfil/create", perfilService::postCriarPerfil);
+		post("/perfil/update", perfilService::postAtualizarPerfil);
+		post("/perfil/delete", perfilService::postDeletarPerfil);
 
 		// Tags
 		post("/tags", tagService::postListar);
@@ -101,6 +129,21 @@ public class Principal {
 		post("/recomendacao/create", recomendacaoService::postCriarRecomendacao);
 		post("/recomendacao/update", recomendacaoService::postAtualizarRecomendacao);
 		post("/recomendacao/delete", recomendacaoService::postDeletarRecomendacao);
+
+		post("/sincronizar/steam", steamSyncService::postSincronizar);
+
+		// Aventura
+		post("/aventuras", aventuraService::postListar);
+		get("/aventuras", aventuraService::getListar);
+
+		post("/aventuras/usuario", aventuraService::postListarUsuario);
+
+		post("/aventuras", aventuraService::postLerAventura);
+		get("/aventuras/:idAventura", aventuraService::getLerAventura);
+
+		post("/aventuras/create", aventuraService::postCriarAventura);
+		post("/aventuras/update", aventuraService::postAtualizarAventura);
+		post("/aventuras/delete", aventuraService::postDeletarAventura);
 
 		post("/sincronizar/steam", steamSyncService::postSincronizar);
 	}
