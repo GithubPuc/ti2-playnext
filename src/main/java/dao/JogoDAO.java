@@ -13,12 +13,13 @@ public class JogoDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO Jogo (titulo, descricao, url, display, pontuacao) VALUES (?, ?, ?, ?, ?);");
-			ps.setString(1, jogo.getTitulo());
-			ps.setString(2, jogo.getDescricao());
-			ps.setString(3, jogo.getUrl());
-			ps.setString(4, jogo.getDisplay());
-			ps.setInt(5, jogo.getPontuacao());
+					"INSERT INTO Jogo (steamidjogo, titulo, descricao, url, display, pontuacao) VALUES (?, ?, ?, ?, ?, ?);");
+			ps.setLong(1, jogo.getSteamIdJogo());
+			ps.setString(2, jogo.getTitulo());
+			ps.setString(3, jogo.getDescricao());
+			ps.setString(4, jogo.getUrl());
+			ps.setString(5, jogo.getDisplay());
+			ps.setInt(6, jogo.getPontuacao());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -32,13 +33,14 @@ public class JogoDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"UPDATE Jogo SET titulo = ?, descricao = ?, url = ?, display = ?, pontuacao = ? WHERE idJogo = ?");
-			ps.setString(1, jogo.getTitulo());
-			ps.setString(2, jogo.getDescricao());
-			ps.setString(3, jogo.getUrl());
-			ps.setString(4, jogo.getDisplay());
-			ps.setInt(5, jogo.getPontuacao());
-			ps.setLong(6, jogo.getIdJogo());
+					"UPDATE Jogo SET steamidjogo= ?, titulo = ?, descricao = ?, url = ?, display = ?, pontuacao = ? WHERE idJogo = ?");
+			ps.setLong(1, jogo.getSteamIdJogo());
+			ps.setString(2, jogo.getTitulo());
+			ps.setString(3, jogo.getDescricao());
+			ps.setString(4, jogo.getUrl());
+			ps.setString(5, jogo.getDisplay());
+			ps.setInt(6, jogo.getPontuacao());
+			ps.setLong(7, jogo.getIdJogo());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -63,7 +65,7 @@ public class JogoDAO extends DAO {
 
 	private Jogo newJogoFromRS(ResultSet rs) throws SQLException {
 		return new Jogo(
-				rs.getLong("idJogo"),
+				rs.getLong("idJogo"), rs.getLong("SteamIdJogo"),
 				rs.getString("titulo"),
 				rs.getString("descricao"),
 				rs.getString("url"),
