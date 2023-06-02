@@ -46,6 +46,42 @@ public class JogoService extends Service<JogoDAO> {
 		}
 	}
 
+	public Object postLerJogosPorTituloParcial(Request request, Response response) {
+		response.type("application/json");
+		try {
+			JsonNode parent = objectMapper.readTree(request.body());
+			Long idJogo = parent.path("titulo").asLong();
+			return WebUtil.jsonPadrao(dao.lerJogo(idJogo));
+		} catch (Exception e) {
+			response.status(400);
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
+		}
+	}
+
+	public Object postLerJogoPorTitulo(Request request, Response response) {
+		response.type("application/json");
+		try {
+			JsonNode parent = objectMapper.readTree(request.body());
+			Long idJogo = parent.path("titulo").asLong();
+			return WebUtil.jsonPadrao(dao.lerJogo(idJogo));
+		} catch (Exception e) {
+			response.status(400);
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
+		}
+	}
+
+	public Object postLerJogoPorSteamId(Request request, Response response) {
+		response.type("application/json");
+		try {
+			JsonNode parent = objectMapper.readTree(request.body());
+			Long idJogo = parent.path("steamIdJogo").asLong();
+			return WebUtil.jsonPadrao(dao.lerJogo(idJogo));
+		} catch (Exception e) {
+			response.status(400);
+			return WebUtil.jsonPadrao("\"BAD REQUEST\"");
+		}
+	}
+
 	public Object postCriarJogo(Request request, Response response) {
 		response.type("application/json");
 		try {
