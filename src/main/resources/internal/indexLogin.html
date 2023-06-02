@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="h-100" data-bs-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/basico.css">
+</head>
+
+<body class="h-100">
+    <header
+        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2 px-4 mb-4 border-bottom">
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <img src="favicon.ico" alt="Logo">
+            </a>
+        </div>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" class="nav-link px-2">Home</a></li>
+            <li><a href="#" class="nav-link px-2">Perfil</a></li>
+            <li><a href="#" class="nav-link px-2">Recomendações</a></li>
+            <li><a href="#" class="nav-link px-2">Interesses</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-outline-primary me-2">Login</button>
+            <button type="button" class="btn btn-primary">Sign-up</button>
+        </div>
+    </header>
+
+    <main class="form-signin w-100 h-75 m-auto">
+        <form class="container col-4 pt-5 px-5" action="javascript:void(0)" onsubmit="javascript:void(0)">
+            <h1 class="h3 mb-3 fw-normal mt-5">Faça log in</h1>
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" placeholder="nome@exemplo.com" name="email">
+                <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating my-2">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Senha" name="senha">
+                <label for="floatingPassword">Senha</label>
+            </div>
+            <button class="btn btn-primary w-100 py-2 mt-1" id="btnlogar">Entrar</button>
+        </form>
+    </main>
+
+    <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <img src="favicon.ico" alt="Logo">
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2023 PlayNext. Todos os direitos reservados.</span>
+        </div>
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3">
+                <a href="https://github.com/GithubPuc/ti2-playnext">
+                    <img src="icons/github.svg" style="height: 3rem;" alt="Github Logo">
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script src="scripts/bootstrap.bundle.min.js"></script>
+    <script src="scripts/login.js"></script>
+</body>
+
+</html>

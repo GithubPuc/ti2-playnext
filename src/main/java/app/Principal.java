@@ -4,6 +4,7 @@ import static spark.Spark.*;
 
 import service.InteresseService;
 import service.JogoService;
+import service.LoginService;
 import service.RecomendacaoService;
 import service.SteamSyncService;
 import service.TagLinkService;
@@ -28,6 +29,7 @@ public class Principal {
 		SteamSyncService steamSyncService = new SteamSyncService();
 		HomeService homeService = new HomeService();
 		EditarService editarService = new EditarService();
+		LoginService loginService = new LoginService();
 
 		port(4500);
 
@@ -70,6 +72,9 @@ public class Principal {
 		post("/usuario/create", usuarioService::postCriarUsuario);
 		post("/usuario/update", usuarioService::postAtualizarUsuario);
 		post("/usuario/delete", usuarioService::postDeletarUsuario);
+
+		get("/login", loginService::getPaginaLogin);
+		post("/login", loginService::postLogarUsuario);
 
 		// Perfil
 		post("/perfil", perfilService::postListar);
