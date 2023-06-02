@@ -16,7 +16,7 @@ public class Principal {
 		JogoService jogoService = new JogoService();
 		UsuarioService usuarioService = new UsuarioService();
 		TagService tagService = new TagService();
-		TagLinkService ttagLinkService = new TagLinkService();
+		TagLinkService tagLinkService = new TagLinkService();
 		InteresseService interesseService = new InteresseService();
 		RecomendacaoService recomendacaoService = new RecomendacaoService();
 		SteamSyncService steamSyncService = new SteamSyncService();
@@ -66,15 +66,15 @@ public class Principal {
 		post("/tag/delete", tagService::postDeletarTag);
 
 		// TagLinks
-		post("/taglinks", ttagLinkService::postListar);
-		get("/taglinks", ttagLinkService::getListar);
+		post("/taglinks", tagLinkService::postListar);
+		get("/taglinks", tagLinkService::getListar);
 
-		post("/taglink", ttagLinkService::postLerTagLink);
-		get("/taglink/:idJogo/:idTag/", ttagLinkService::getLerTagLink);
+		post("/taglink", tagLinkService::postLerTagLink);
+		get("/taglink/:idJogo/:idTag/", tagLinkService::getLerTagLink);
 
-		post("/taglink/create", ttagLinkService::postCriarTagLink);
-		post("/taglink/update", ttagLinkService::postAtualizarTagLink);
-		post("/taglink/delete", ttagLinkService::postDeletarTagLink);
+		post("/taglink/create", tagLinkService::postCriarTagLink);
+		post("/taglink/update", tagLinkService::postAtualizarTagLink);
+		post("/taglink/delete", tagLinkService::postDeletarTagLink);
 
 		// Interesses
 		post("/interesses", interesseService::postListar);
