@@ -23,7 +23,7 @@
 
     function main() {
         let id = 0;
-        let i = 3;
+        let i = 90;
         const proms = [];
         while (i-- > 0) {
             id = 1280 + getRandomInt(11000);
