@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class WebUtil {
-	private static final ObjectMapper objectMapper = new ObjectMapper();
+	public static final ObjectMapper objectMapper = new ObjectMapper();
 
 	public static String lerHTML(String filename) {
 		Scanner sc = new Scanner(WebUtil.class.getResourceAsStream("/internal/" + filename), "UTF-8");

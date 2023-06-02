@@ -37,7 +37,7 @@ public class UsuarioService extends Service<UsuarioDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idUsuario = parent.path("idUsuario").asLong();
+			long idUsuario = parent.path("idUsuario").asLong();
 			if (idUsuario == 0L)
 				return WebUtil.jsonLista(dao.listarUsuarios());
 			return WebUtil.jsonPadrao(dao.lerUsuario(idUsuario));
@@ -75,7 +75,7 @@ public class UsuarioService extends Service<UsuarioDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idUsuario = parent.path("idUsuario").asLong();
+			long idUsuario = parent.path("idUsuario").asLong();
 			return WebUtil.jsonPadrao(0, dao.excluirUsuario(idUsuario) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

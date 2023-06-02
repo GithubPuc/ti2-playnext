@@ -1,10 +1,10 @@
 package model;
 
 public class TagLink {
-	private Long idJogo;
-	private Long idTag;
+	private long idJogo;
+	private long idTag;
 
-	public TagLink(Long idJogo, Long idTag) {
+	public TagLink(long idJogo, long idTag) {
 		this.idJogo = idJogo;
 		this.idTag = idTag;
 	}
@@ -13,19 +13,19 @@ public class TagLink {
 		this(-1L, -1L);
 	}
 
-	public Long getIdJogo() {
+	public long getIdJogo() {
 		return idJogo;
 	}
 
-	public void setIdJogo(Long idJogo) {
+	public void setIdJogo(long idJogo) {
 		this.idJogo = idJogo;
 	}
 
-	public Long getIdTag() {
+	public long getIdTag() {
 		return idTag;
 	}
 
-	public void setIdTag(Long idTag) {
+	public void setIdTag(long idTag) {
 		this.idTag = idTag;
 	}
 }

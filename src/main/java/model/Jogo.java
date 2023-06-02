@@ -2,22 +2,22 @@ package model;
 
 public class Jogo {
 	private long idJogo;
-	private Long steamIdJogo;
+	private long steamIdJogo;
 	private String titulo;
 	private String descricao;
 	private String url;
 	private String display;
 	private int pontuacao;
 	
-	public Long getSteamIdJogo() {
+	public long getSteamIdJogo() {
 		return steamIdJogo;
 	}
 
-	public void setSteamIdJogo(Long steamIdJogo) {
+	public void setSteamIdJogo(long steamIdJogo) {
 		this.steamIdJogo = steamIdJogo;
 	}
 
-	public Jogo(long idJogo, Long steamIdJogo, String titulo, String descricao, String url, String display,
+	public Jogo(long idJogo, long steamIdJogo, String titulo, String descricao, String url, String display,
 			int pontuacao) {
 		this.idJogo = idJogo;
 		this.steamIdJogo = steamIdJogo;

@@ -36,7 +36,7 @@ public class RecomendacaoService extends Service<RecomendacaoDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idRecomendacao = parent.path("idUsuario").asLong();
+			long idRecomendacao = parent.path("idUsuario").asLong();
 			return WebUtil.jsonPadrao(dao.listarRecomendacoesParaUsuario(idRecomendacao));
 		} catch (Exception e) {
 			response.status(400);
@@ -48,7 +48,7 @@ public class RecomendacaoService extends Service<RecomendacaoDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idRecomendacao = parent.path("idRecomendacao").asLong();
+			long idRecomendacao = parent.path("idRecomendacao").asLong();
 			if (idRecomendacao == 0L)
 				return WebUtil.jsonLista(dao.listarRecomendacoes());
 			return WebUtil.jsonPadrao(dao.lerRecomendacao(idRecomendacao));
@@ -84,7 +84,7 @@ public class RecomendacaoService extends Service<RecomendacaoDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idRecomendacao = parent.path("idRecomendacao").asLong();
+			long idRecomendacao = parent.path("idRecomendacao").asLong();
 			return WebUtil.jsonPadrao(0, dao.excluirRecomendacao(idRecomendacao) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

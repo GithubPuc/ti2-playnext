@@ -36,7 +36,7 @@ public class InteresseService extends Service<InteresseDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idInteresse = parent.path("idUsuario").asLong();
+			long idInteresse = parent.path("idUsuario").asLong();
 			return WebUtil.jsonLista(dao.listarInteressesDoUsuario(idInteresse));
 		} catch (Exception e) {
 			response.status(400);
@@ -48,7 +48,7 @@ public class InteresseService extends Service<InteresseDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idInteresse = parent.path("idInteresse").asLong();
+			long idInteresse = parent.path("idInteresse").asLong();
 			if (idInteresse == 0L)
 				return WebUtil.jsonLista(dao.listarInteresses());
 			return WebUtil.jsonPadrao(dao.lerInteresse(idInteresse));
@@ -84,7 +84,7 @@ public class InteresseService extends Service<InteresseDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idInteresse = parent.path("idInteresse").asLong();
+			long idInteresse = parent.path("idInteresse").asLong();
 			return WebUtil.jsonPadrao(0, dao.excluirInteresse(idInteresse) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

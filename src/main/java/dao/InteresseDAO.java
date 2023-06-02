@@ -101,7 +101,7 @@ public class InteresseDAO extends DAO {
 		return interesse;
 	}
 
-	public Interesse[] listarInteressesDoUsuario(Long idUsuario) {
+	public Interesse[] listarInteressesDoUsuario(long idUsuario) {
 		Interesse[] interesses = null;
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

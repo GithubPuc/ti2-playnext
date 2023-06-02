@@ -37,7 +37,7 @@ public class EditarService extends Service<EditarDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idEditar = parent.path("idEditar").asLong();
+			long idEditar = parent.path("idEditar").asLong();
 			if (idEditar == 0L)
 				return WebUtil.jsonLista(dao.listarEditars());
 			return WebUtil.jsonPadrao(dao.lerEditar(idEditar));
@@ -75,7 +75,7 @@ public class EditarService extends Service<EditarDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idEditar = parent.path("idEditar").asLong();
+			long idEditar = parent.path("idEditar").asLong();
 			return WebUtil.jsonPadrao(0, dao.excluirEditar(idEditar) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

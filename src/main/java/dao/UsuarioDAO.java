@@ -13,11 +13,10 @@ public class UsuarioDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO Usuario (username, email, senha, tipo) VALUES (?, ?, ?, ?);");
-			ps.setString(1, usuario.getUsername());
-			ps.setString(2, usuario.getEmail());
-			ps.setBytes(3, usuario.getSenha());
-			ps.setInt(4, usuario.getTipo());
+					"INSERT INTO Usuario (email, senha, tipo) VALUES (?, ?, ?, ?);");
+			ps.setString(1, usuario.getEmail());
+			ps.setBytes(2, usuario.getSenha());
+			ps.setInt(3, usuario.getTipo());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -31,12 +30,11 @@ public class UsuarioDAO extends DAO {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"UPDATE Usuario SET username = ?, email = ?, senha = ?, tipo = ? WHERE idUsuario = ?");
-			ps.setString(1, usuario.getUsername());
-			ps.setString(2, usuario.getEmail());
-			ps.setBytes(3, usuario.getSenha());
-			ps.setInt(4, usuario.getTipo());
-			ps.setLong(5, usuario.getIdUsuario());
+					"UPDATE Usuario SET email = ?, senha = ?, tipo = ? WHERE idUsuario = ?");
+			ps.setString(1, usuario.getEmail());
+			ps.setBytes(2, usuario.getSenha());
+			ps.setInt(3, usuario.getTipo());
+			ps.setLong(4, usuario.getIdUsuario());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -62,7 +60,6 @@ public class UsuarioDAO extends DAO {
 	private Usuario newUsuarioFromRS(ResultSet rs) throws SQLException {
 		return new Usuario(
 				rs.getLong("idUsuario"),
-				rs.getString("username"),
 				rs.getString("email"),
 				rs.getBytes("senha"),
 				rs.getInt("tipo"));

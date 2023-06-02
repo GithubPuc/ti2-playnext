@@ -34,7 +34,7 @@ public class Principal {
 		staticFiles.location("/public");
 
 		get("/", (request, response) -> {
-			response.redirect("/perfil");
+			response.redirect("/home");
 			return "";
 		});
 
@@ -76,22 +76,14 @@ public class Principal {
 		get("/perfil", perfilService::getListar);
 
 		post("/perfil", perfilService::postLerPerfil);
-		get("/perfil/:idperfil", perfilService::getLerPerfil);
+		get("/perfil/:idUsuario", perfilService::getLerPerfil);
 
 		post("/perfil/create", perfilService::postCriarPerfil);
 		post("/perfil/update", perfilService::postAtualizarPerfil);
 		post("/perfil/delete", perfilService::postDeletarPerfil);
 
 		// Editar
-		post("/editar", editarService::postListar);
 		get("/editar", editarService::getListar);
-
-		post("/editar", editarService::postLerEditar);
-		get("/editar/:ideditar", editarService::getLerEditar);
-
-		post("/editar/create", editarService::postCriarEditar);
-		post("/editar/update", editarService::postAtualizarEditar);
-		post("/editar/delete", editarService::postDeletarEditar);
 
 		// Tags
 		post("/tags", tagService::postListar);
@@ -158,6 +150,6 @@ public class Principal {
 		post("/aventuras/update", aventuraService::postAtualizarAventura);
 		post("/aventuras/delete", aventuraService::postDeletarAventura);
 
-		post("/sincronizar/steam", steamSyncService::postSincronizar);
+		get("/sincronizar/steam", steamSyncService::postSincronizar);
 	}
 }

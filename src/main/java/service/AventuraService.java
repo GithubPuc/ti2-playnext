@@ -36,7 +36,7 @@ public class AventuraService extends Service<AventuraDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idAventura = parent.path("idUsuario").asLong();
+			long idAventura = parent.path("idUsuario").asLong();
 			return WebUtil.jsonPadrao(dao.listarAventurasParaUsuario(idAventura));
 		} catch (Exception e) {
 			response.status(400);
@@ -48,7 +48,7 @@ public class AventuraService extends Service<AventuraDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idAventura = parent.path("idAventura").asLong();
+			long idAventura = parent.path("idAventura").asLong();
 			if (idAventura == 0L)
 				return WebUtil.jsonLista(dao.listarAventuras());
 			return WebUtil.jsonPadrao(dao.lerAventura(idAventura));
@@ -84,7 +84,7 @@ public class AventuraService extends Service<AventuraDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idAventura = parent.path("idAventura").asLong();
+			long idAventura = parent.path("idAventura").asLong();
 			return WebUtil.jsonPadrao(0, dao.excluirAventura(idAventura) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

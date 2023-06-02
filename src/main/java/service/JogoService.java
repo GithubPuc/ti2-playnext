@@ -36,7 +36,7 @@ public class JogoService extends Service<JogoDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idJogo = parent.path("idJogo").asLong();
+			long idJogo = parent.path("idJogo").asLong();
 			if (idJogo == 0L)
 				return WebUtil.jsonLista(dao.listarJogos());
 			return WebUtil.jsonPadrao(dao.lerJogo(idJogo));
@@ -50,7 +50,7 @@ public class JogoService extends Service<JogoDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idJogo = parent.path("titulo").asLong();
+			long idJogo = parent.path("titulo").asLong();
 			return WebUtil.jsonPadrao(dao.lerJogo(idJogo));
 		} catch (Exception e) {
 			response.status(400);
@@ -62,7 +62,7 @@ public class JogoService extends Service<JogoDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idJogo = parent.path("titulo").asLong();
+			long idJogo = parent.path("titulo").asLong();
 			return WebUtil.jsonPadrao(dao.lerJogo(idJogo));
 		} catch (Exception e) {
 			response.status(400);
@@ -74,7 +74,7 @@ public class JogoService extends Service<JogoDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idJogo = parent.path("steamIdJogo").asLong();
+			long idJogo = parent.path("steamIdJogo").asLong();
 			return WebUtil.jsonPadrao(dao.lerJogo(idJogo));
 		} catch (Exception e) {
 			response.status(400);
@@ -108,7 +108,7 @@ public class JogoService extends Service<JogoDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idJogo = parent.path("idJogo").asLong();
+			long idJogo = parent.path("idJogo").asLong();
 			return WebUtil.jsonPadrao(0, dao.excluirJogo(idJogo) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

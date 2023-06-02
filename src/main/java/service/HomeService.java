@@ -36,7 +36,7 @@ public class HomeService extends Service<HomeDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idHome = parent.path("idHome").asLong();
+			long idHome = parent.path("idHome").asLong();
 			if (idHome == 0L)
 				return WebUtil.jsonLista(dao.listarHomes());
 			return WebUtil.jsonPadrao(dao.lerHome(idHome));
@@ -72,7 +72,7 @@ public class HomeService extends Service<HomeDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idHome = parent.path("idHome").asLong();
+			long idHome = parent.path("idHome").asLong();
 			return WebUtil.jsonPadrao(0, dao.excluirHome(idHome) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

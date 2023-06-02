@@ -36,7 +36,7 @@ public class TagService extends Service<TagDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idJogo = parent.path("idJogo").asLong();
+			long idJogo = parent.path("idJogo").asLong();
 			return WebUtil.jsonLista(dao.listarTagsDeJogo(idJogo));
 		} catch (Exception e) {
 			response.status(400);
@@ -48,7 +48,7 @@ public class TagService extends Service<TagDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idTag = parent.path("idTag").asLong();
+			long idTag = parent.path("idTag").asLong();
 			if (idTag == 0L)
 				return WebUtil.jsonLista(dao.listarTags());
 			return WebUtil.jsonPadrao(dao.lerTag(idTag));
@@ -84,7 +84,7 @@ public class TagService extends Service<TagDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idTag = parent.path("idTag").asLong();
+			long idTag = parent.path("idTag").asLong();
 			return WebUtil.jsonPadrao(0, dao.excluirTag(idTag) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

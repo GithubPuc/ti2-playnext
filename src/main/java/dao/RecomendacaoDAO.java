@@ -101,7 +101,7 @@ public class RecomendacaoDAO extends DAO {
 		return recomendacao;
 	}
 
-	public Recomendacao[] listarRecomendacoesParaUsuario(Long idUsuario) {
+	public Recomendacao[] listarRecomendacoesParaUsuario(long idUsuario) {
 		Recomendacao[] recomendacoes = null;
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

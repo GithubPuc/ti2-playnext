@@ -1,30 +1,10 @@
-html {
-    background-color: black;
-    color: white;
+main {
+    font-family: Arial, sans-serif;
+    background-image: url(background.jpg);
+    background-size: 100% 100%;
 }
 
-form {
-    padding-left: 1em;
-    padding-top: 1em;
-}
-
-label {
-    display: inline-block;
-}
-
-textarea {
-    vertical-align: baseline;
-}
-
-input[type=number] {
-    width: 5em;
-}
-
-input[type=submit] {
-    font-size: large;
-    margin: 1em;
-}
-
-form {
-    color: black;
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

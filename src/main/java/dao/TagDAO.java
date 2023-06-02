@@ -81,7 +81,7 @@ public class TagDAO extends DAO {
 		return tags;
 	}
 
-	public Tag[] listarTagsDeJogo(Long idJogo) {
+	public Tag[] listarTagsDeJogo(long idJogo) {
 		Tag[] tags = null;
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

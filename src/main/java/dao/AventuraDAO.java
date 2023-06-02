@@ -101,7 +101,7 @@ public class AventuraDAO extends DAO {
 		return aventura;
 	}
 
-	public Aventura[] listarAventurasParaUsuario(Long idUsuario) {
+	public Aventura[] listarAventurasParaUsuario(long idUsuario) {
 		Aventura[] aventuras = null;
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

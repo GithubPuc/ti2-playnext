@@ -38,8 +38,8 @@ public class TagLinkService extends Service<TagLinkDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idJogo = parent.path("idJogo").asLong();
-			Long idTag = parent.path("idTag").asLong();
+			long idJogo = parent.path("idJogo").asLong();
+			long idTag = parent.path("idTag").asLong();
 			if (idTag == 0L)
 				return WebUtil.jsonLista(dao.listarTagLinks());
 			return WebUtil.jsonPadrao(dao.lerTagLink(idJogo, idTag));
@@ -79,8 +79,8 @@ public class TagLinkService extends Service<TagLinkDAO> {
 		response.type("application/json");
 		try {
 			JsonNode parent = objectMapper.readTree(request.body());
-			Long idJogo = parent.path("idJogo").asLong();
-			Long idTag = parent.path("idTag").asLong();
+			long idJogo = parent.path("idJogo").asLong();
+			long idTag = parent.path("idTag").asLong();
 			return WebUtil.jsonPadrao(0, dao.excluirTagLink(idJogo, idTag) ? "Excluido" : "Erro interno");
 		} catch (Exception e) {
 			response.status(400);

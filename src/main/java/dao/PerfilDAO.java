@@ -9,15 +9,13 @@ import model.Perfil;
 
 public class PerfilDAO extends DAO {
 
-	public boolean inserirPerfil(Perfil Perfil) {
+	public boolean inserirPerfil(Perfil perfil) {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO Perfil (username, email, senha, tipo) VALUES (?, ?, ?, ?);");
-			ps.setString(1, Perfil.getUsername());
-			ps.setString(2, Perfil.getEmail());
-			ps.setBytes(3, Perfil.getSenha());
-			ps.setInt(4, Perfil.getTipo());
+					"INSERT INTO Perfil (username, steamId) VALUES (?, ?);");
+			ps.setString(1, perfil.getUsername());
+			ps.setString(2, perfil.getSteamId());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -27,16 +25,14 @@ public class PerfilDAO extends DAO {
 		return status;
 	}
 
-	public boolean atualizarPerfil(Perfil Perfil) {
+	public boolean atualizarPerfil(Perfil perfil) {
 		boolean status = false;
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"UPDATE Perfil SET username = ?, email = ?, senha = ?, tipo = ? WHERE idPerfil = ?");
-			ps.setString(1, Perfil.getUsername());
-			ps.setString(2, Perfil.getEmail());
-			ps.setBytes(3, Perfil.getSenha());
-			ps.setInt(4, Perfil.getTipo());
-			ps.setLong(5, Perfil.getIdPerfil());
+					"UPDATE Perfil SET username = ?, steamId = ? WHERE idUsuario = ?");
+			ps.setString(1, perfil.getUsername());
+			ps.setString(2, perfil.getSteamId());
+			ps.setLong(3, perfil.getIdUsuario());
 			ps.executeUpdate();
 			ps.close();
 			status = true;
@@ -46,11 +42,11 @@ public class PerfilDAO extends DAO {
 		return status;
 	}
 
-	public boolean excluirPerfil(long idPerfil) {
+	public boolean excluirPerfil(long idUsuario) {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE FROM Perfil WHERE idPerfil = " + idPerfil);
+			st.executeUpdate("DELETE FROM Perfil WHERE idUsuario = " + idUsuario);
 			st.close();
 			status = true;
 		} catch (SQLException u) {
@@ -61,43 +57,56 @@ public class PerfilDAO extends DAO {
 
 	private Perfil newPerfilFromRS(ResultSet rs) throws SQLException {
 		return new Perfil(
-				rs.getLong("idPerfil"),
+				rs.getLong("idUsuario"),
 				rs.getString("username"),
-				rs.getString("email"),
-				rs.getBytes("senha"),
-				rs.getInt("tipo"));
+				rs.getString("steamId"));
 	}
 
-	public Perfil[] listarPerfils() {
-		Perfil[] Perfils = null;
+	public Perfil[] listarPerfis() {
+		Perfil[] perfis = null;
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = st.executeQuery("SELECT * FROM Perfil");
 			if (rs.next()) {
 				rs.last();
-				Perfils = new Perfil[rs.getRow()];
+				perfis = new Perfil[rs.getRow()];
 				rs.beforeFirst();
 				for (int i = 0; rs.next(); i++)
-					Perfils[i] = newPerfilFromRS(rs);
+					perfis[i] = newPerfilFromRS(rs);
 			}
 			st.close();
 		} catch (SQLException u) {
 			throw new RuntimeException(u);
 		}
-		return Perfils;
+		return perfis;
 	}
 
-	public Perfil lerPerfil(long idPerfil) {
-		Perfil Perfil = null;
+	public Perfil lerPerfil(long idUsuario) {
+		Perfil perfil = null;
 		try {
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM Perfil WHERE idPerfil = " + idPerfil);
+			ResultSet rs = st.executeQuery("SELECT * FROM Perfil WHERE idUsuario = " + idUsuario);
 			if (rs.next())
-				Perfil = newPerfilFromRS(rs);
+				perfil = newPerfilFromRS(rs);
 			st.close();
 		} catch (SQLException u) {
 			throw new RuntimeException(u);
 		}
-		return Perfil;
+		return perfil;
+	}
+
+	public Perfil lerPerfilPorSteamId(String steamId) {
+		Perfil perfil = null;
+		try {
+			PreparedStatement ps = conexao.prepareStatement("SELECT * FROM Perfil WHERE steamId = ?");
+			ps.setString(1, steamId);
+			var rs = ps.executeQuery();
+			if (rs.next())
+				perfil = newPerfilFromRS(rs);
+			ps.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return perfil;
 	}
 }
