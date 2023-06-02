@@ -105,4 +105,48 @@ public class JogoDAO extends DAO {
 		}
 		return jogo;
 	}
+
+	public Jogo lerJogoPorTituloParcial(String titulo) {
+		Jogo jogo = null;
+		try {
+			PreparedStatement ps = conexao.prepareStatement("SELECT * FROM Jogo WHERE titulo LIKE ?");
+			ps.setString(1, "%" + titulo + "%");
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				jogo = newJogoFromRS(rs);
+			ps.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return jogo;
+	}
+
+	public Jogo lerJogoPorTituloExato(String titulo) {
+		Jogo jogo = null;
+		try {
+			PreparedStatement ps = conexao.prepareStatement("SELECT * FROM Jogo WHERE titulo = ?");
+			ps.setString(1, titulo);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				jogo = newJogoFromRS(rs);
+			ps.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return jogo;
+	}
+
+	public Jogo lerJogoPorSteamId(long steamIdJogo) {
+		Jogo jogo = null;
+		try {
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM Jogo WHERE steamIdJogo = " + steamIdJogo);
+			if (rs.next())
+				jogo = newJogoFromRS(rs);
+			st.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return jogo;
+	}
 }
