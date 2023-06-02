@@ -12,6 +12,7 @@ import service.PerfilService;
 import service.AventuraService;
 import service.UsuarioService;
 import service.HomeService;
+import service.EditarService;
 
 public class Principal {
 
@@ -26,6 +27,7 @@ public class Principal {
 		AventuraService aventuraService = new AventuraService();
 		SteamSyncService steamSyncService = new SteamSyncService();
 		HomeService homeService = new HomeService();
+		EditarService editarService = new EditarService();
 
 		port(4500);
 
@@ -79,6 +81,17 @@ public class Principal {
 		post("/perfil/create", perfilService::postCriarPerfil);
 		post("/perfil/update", perfilService::postAtualizarPerfil);
 		post("/perfil/delete", perfilService::postDeletarPerfil);
+
+		// Editar
+		post("/editar", editarService::postListar);
+		get("/editar", editarService::getListar);
+
+		post("/editar", editarService::postLerEditar);
+		get("/editar/:ideditar", editarService::getLerEditar);
+
+		post("/editar/create", editarService::postCriarEditar);
+		post("/editar/update", editarService::postAtualizarEditar);
+		post("/editar/delete", editarService::postDeletarEditar);
 
 		// Tags
 		post("/tags", tagService::postListar);

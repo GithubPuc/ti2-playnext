@@ -47,3 +47,13 @@ function listar(arr) {
 		l.appendChild(li);
 	}
 }
+function rotateButton() {
+	const button = document.querySelector('.button');
+
+	button.classList.add('rotate');
+
+	setTimeout(() => {
+	  button.classList.remove('rotate');
+	}, 1000);
+
+  }
